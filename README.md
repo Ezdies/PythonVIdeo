@@ -14,7 +14,7 @@ Before running the program, you need to have the following installed:
 
 1. Clone the repository to your local machine:
 
-``git clone https://github.com/<username>/youtube-downloader.git``
+``git clone https://github.com/Ezdies/youtube-downloader.git``
 
 2. Install the required packages:
 
