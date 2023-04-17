@@ -7,28 +7,34 @@ class DownloaderWindow(QMainWindow):
     def __init__(self):
         super().__init__()
         self.setWindowTitle("YouTube Video Downloader")
-        self.setGeometry(100, 100, 800, 600)  # set the window size and position
+        self.setGeometry(100, 100, 800, 600)
+        self.set_url()
+        self.set_filename()
+        self.browse_button()
+        self.download_button()
 
-        # Create the URL input field
+    def set_url(self):
         url_label = QLabel("YouTube Video URL:", self)
         url_label.move(20, 20)
-        url_label.resize(200, 30)  # adjust the size of the label
+        url_label.resize(200, 30)
         self.url_entry = QLineEdit(self)
-        self.url_entry.setGeometry(20, 60, 760, 30)  # adjust the position and size of the entry field
+        self.url_entry.setGeometry(20, 60, 760, 30)
 
-        # Create the filename input field and "Browse" button
+    def set_filename(self):
         filename_label = QLabel("Save As:", self)
         filename_label.move(20, 100)
-        filename_label.resize(200, 30)  # adjust the size of the label
+        filename_label.resize(200, 30)
         self.filename_entry = QLineEdit(self)
-        self.filename_entry.setGeometry(20, 140, 640, 30)  # adjust the position and size of the entry field
+        self.filename_entry.setGeometry(20, 140, 640, 30)
+
+    def browse_button(self):
         browse_button = QPushButton("Browse", self)
-        browse_button.setGeometry(680, 140, 100, 30)  # adjust the position and size of the button
+        browse_button.setGeometry(680, 140, 100, 30)
         browse_button.clicked.connect(self.browse_files)
 
-        # Create the "Download" button
+    def download_button(self):
         download_button = QPushButton("Download", self)
-        download_button.setGeometry(20, 200, 100, 30)  # adjust the position and size of the button
+        download_button.setGeometry(20, 200, 100, 30)
         download_button.clicked.connect(self.download_video)
 
     def browse_files(self):
@@ -40,15 +46,15 @@ class DownloaderWindow(QMainWindow):
         url = self.url_entry.text()
         output_path = self.filename_entry.text()
 
-        # Create a YouTube object and get the highest resolution video stream
-        yt = YouTube(url)
-        stream = yt.streams.get_highest_resolution()
+        try:
+            yt = YouTube(url)
+            stream = yt.streams.get_highest_resolution()
 
-        # Download the video to the specified path
-        stream.download(output_path)
+            stream.download(output_path)
 
-        # Show a message box when the download is complete
-        self.statusBar().showMessage("Download Complete")
+            self.statusBar().showMessage("Download Complete")
+        except Exception as e:
+            self.statusBar().showMessage(f"Error: {str(e)}")
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
