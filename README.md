@@ -31,6 +31,16 @@ Before running the program, you need to have the following installed:
 3. Click the "Download" button to start the download process. The program will display the download status in the status bar.
 4. Once the download is complete, a message box will appear to confirm the successful download.
 
+## Contributing
+
+Contributions to this project are welcome! Here are some ways you can contribute:
+
+* Report a bug by opening an issue
+* Suggest a new feature by opening an issue
+* Contribute code by forking the repository and creating a pull request
+
+Please make sure to follow the [code of conduct](CODE_OF_CONDUCT.md) when contributing to this project.
+
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details.
