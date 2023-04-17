@@ -1,8 +1,5 @@
-import os
-import sys
-from PyQt5.QtWidgets import QApplication, QMainWindow, QFileDialog, QLabel, QLineEdit, QPushButton, QProgressBar, QMessageBox
+from PyQt5.QtWidgets import QMainWindow, QFileDialog, QLabel, QLineEdit, QPushButton, QMessageBox
 from pytube import YouTube
-from tqdm import tqdm
 
 class DownloaderWindow(QMainWindow):
     def __init__(self):
@@ -68,11 +65,3 @@ class DownloaderWindow(QMainWindow):
         
         self.message_box()
     
-    
-
-
-if __name__ == '__main__':
-    app = QApplication(sys.argv)
-    window = DownloaderWindow()
-    window.show()
-    sys.exit(app.exec_())
