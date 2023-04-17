@@ -7,25 +7,28 @@ class DownloaderWindow(QMainWindow):
     def __init__(self):
         super().__init__()
         self.setWindowTitle("YouTube Video Downloader")
+        self.setGeometry(100, 100, 800, 600)  # set the window size and position
 
         # Create the URL input field
         url_label = QLabel("YouTube Video URL:", self)
         url_label.move(20, 20)
+        url_label.resize(200, 30)  # adjust the size of the label
         self.url_entry = QLineEdit(self)
-        self.url_entry.setGeometry(20, 40, 400, 30)
+        self.url_entry.setGeometry(20, 60, 760, 30)  # adjust the position and size of the entry field
 
         # Create the filename input field and "Browse" button
         filename_label = QLabel("Save As:", self)
-        filename_label.move(20, 80)
+        filename_label.move(20, 100)
+        filename_label.resize(200, 30)  # adjust the size of the label
         self.filename_entry = QLineEdit(self)
-        self.filename_entry.setGeometry(20, 100, 320, 30)
+        self.filename_entry.setGeometry(20, 140, 640, 30)  # adjust the position and size of the entry field
         browse_button = QPushButton("Browse", self)
-        browse_button.setGeometry(350, 100, 70, 30)
+        browse_button.setGeometry(680, 140, 100, 30)  # adjust the position and size of the button
         browse_button.clicked.connect(self.browse_files)
 
         # Create the "Download" button
         download_button = QPushButton("Download", self)
-        download_button.setGeometry(20, 150, 100, 30)
+        download_button.setGeometry(20, 200, 100, 30)  # adjust the position and size of the button
         download_button.clicked.connect(self.download_video)
 
     def browse_files(self):
