@@ -14,15 +14,15 @@ Before running the program, you need to have the following installed:
 
 1. Clone the repository to your local machine:
 
-`git clone https://github.com/<username>/youtube-downloader.git`
+``git clone https://github.com/<username>/youtube-downloader.git``
 
 2. Install the required packages:
 
-`pip install pyqt5 pytube`
+``pip install pyqt5 pytube``
 
 3. Run the program
 
-`python main.py`
+``python main.py``
 
 ## How to Use
 
@@ -39,11 +39,9 @@ Contributions to this project are welcome! Here are some ways you can contribute
 * Suggest a new feature by opening an issue
 * Contribute code by forking the repository and creating a pull request
 
-Please make sure to follow the [code of conduct](CODE_OF_CONDUCT.md) when contributing to this project.
-
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details.
+This project is licensed under the MIT License.
 
 ## Acknowledgements
 
