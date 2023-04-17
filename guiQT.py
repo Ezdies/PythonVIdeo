@@ -1,13 +1,15 @@
 import os
 import sys
-from PyQt5.QtWidgets import QApplication, QMainWindow, QFileDialog, QLabel, QLineEdit, QPushButton
+from PyQt5.QtWidgets import QApplication, QMainWindow, QFileDialog, QLabel, QLineEdit, QPushButton, QProgressBar, QMessageBox
 from pytube import YouTube
+from tqdm import tqdm
 
 class DownloaderWindow(QMainWindow):
     def __init__(self):
         super().__init__()
         self.setWindowTitle("YouTube Video Downloader")
         self.setGeometry(100, 100, 800, 600)
+
         self.set_url()
         self.set_filename()
         self.browse_button()
@@ -41,6 +43,14 @@ class DownloaderWindow(QMainWindow):
         filename, _ = QFileDialog.getSaveFileName(self, "Save As", ".", "MP4 files (*.mp4);;All files (*.*)")
         if filename:
             self.filename_entry.setText(filename)
+        
+    def message_box(self):
+        self.statusBar().showMessage("Download Complete")
+        msg_box = QMessageBox()
+        msg_box.setWindowTitle("Download Complete")
+        msg_box.setText("The video has been downloaded successfully.")
+        msg_box.exec_()
+        
 
     def download_video(self):
         url = self.url_entry.text()
@@ -55,6 +65,11 @@ class DownloaderWindow(QMainWindow):
             self.statusBar().showMessage("Download Complete")
         except Exception as e:
             self.statusBar().showMessage(f"Error: {str(e)}")
+        
+        self.message_box()
+    
+    
+
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
