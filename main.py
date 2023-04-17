@@ -1,4 +1,3 @@
-import ffmpeg
 import os
 from pytube import YouTube
 
@@ -12,11 +11,8 @@ if not os.path.exists(path_to_download_dir):
 
 url = 'https://www.youtube.com/watch?v=PjDgKXe8gxs'
 
-# Create a YouTube object and get the video information
+# Create a YouTube object and get the highest resolution video stream
 yt = YouTube(url)
-yt.check_availability()
-
-# Find the highest resolution progressive stream
 stream = yt.streams.get_highest_resolution()
 
 # Specify the download directory and filename
