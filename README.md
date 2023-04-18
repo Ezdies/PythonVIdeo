@@ -22,14 +22,14 @@ Before running the program, you need to have the following installed:
 
 3. Run the program
 
-``python main.py``
+``python3 main.py``
 
 ## How to Use
 
 1. Open the program and enter a valid YouTube video URL in the input field.
 2. Choose a destination folder by either typing the path or clicking the "Browse" button to open a file dialog.
 3. Click the "Download" button to start the download process. The program will display the download status in the status bar.
-4. Once the download is complete, a message box will appear to confirm the successful download.
+4. Once the download is complete, a dialog box will appear to confirm the successful download.
 
 ## Contributing
 
