@@ -73,6 +73,8 @@ class DownloaderWindow(QMainWindow):
             stream.download(filename=output_path + '.' + self.filetype.lower())
             self.statusBar().showMessage("Download Complete")
             self.download_status.show_message("Download complete")
+            self.download_status.show_popup()
         except Exception as e:
             self.statusBar().showMessage(f"Error: {str(e)}")
             self.download_status.show_message(f"Error: {str(e)}")
+            print(f"Error: {str(e)}")
