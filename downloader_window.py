@@ -1,4 +1,4 @@
-from PyQt5.QtWidgets import QMainWindow, QFileDialog, QLabel, QLineEdit, QPushButton, QMessageBox
+from PyQt5.QtWidgets import QMainWindow, QFileDialog, QLabel, QLineEdit, QPushButton, QMessageBox, QComboBox
 from pytube import YouTube
 
 class DownloaderWindow(QMainWindow):
@@ -11,13 +11,24 @@ class DownloaderWindow(QMainWindow):
         self.set_filename()
         self.browse_button()
         self.download_button()
+        self.filetype_box()
+        self.filetype = "MP4"
 
     def set_url(self):
         url_label = QLabel("YouTube Video URL:", self)
         url_label.move(20, 20)
         url_label.resize(200, 30)
         self.url_entry = QLineEdit(self)
-        self.url_entry.setGeometry(20, 60, 760, 30)
+        self.url_entry.setGeometry(20, 60, 640, 30)
+
+    def filetype_box(self):
+        filetype_box = QComboBox(self)
+        filetype_box.addItems(["MP4", "MP3"])
+        filetype_box.setGeometry(680, 60, 100, 30)
+        filetype_box.currentTextChanged.connect(self.text_changed)
+
+    def text_changed(self, str):
+        self.filetype = str
 
     def set_filename(self):
         filename_label = QLabel("Save As:", self)
@@ -37,31 +48,29 @@ class DownloaderWindow(QMainWindow):
         download_button.clicked.connect(self.download_video)
 
     def browse_files(self):
-        filename, _ = QFileDialog.getSaveFileName(self, "Save As", ".", "MP4 files (*.mp4);;All files (*.*)")
+        filename, _ = QFileDialog.getSaveFileName(self, "Save As", ".", self.filetype + " files (*." + self.filetype.lower() + ");;All files (*.*)")
         if filename:
             self.filename_entry.setText(filename)
-        
+
     def message_box(self):
         self.statusBar().showMessage("Download Complete")
         msg_box = QMessageBox()
         msg_box.setWindowTitle("Download Complete")
         msg_box.setText("The video has been downloaded successfully.")
         msg_box.exec_()
-        
 
     def download_video(self):
         url = self.url_entry.text()
         output_path = self.filename_entry.text()
-
         try:
             yt = YouTube(url)
-            stream = yt.streams.get_highest_resolution()
-
-            stream.download(output_path)
-
+            if self.filetype == "MP4":
+                stream = yt.streams.get_highest_resolution()
+            else:
+                stream = yt.streams.filter(only_audio=True).first()
+            stream.download(filename=output_path + '.' + self.filetype.lower())
             self.statusBar().showMessage("Download Complete")
         except Exception as e:
             self.statusBar().showMessage(f"Error: {str(e)}")
-        
+
         self.message_box()
-    
