@@ -1,5 +1,6 @@
 from PyQt5.QtWidgets import QMainWindow, QFileDialog, QLabel, QLineEdit, QPushButton, QMessageBox, QComboBox
 from pytube import YouTube
+from download_widget import DownloadStatusWidget
 
 class DownloaderWindow(QMainWindow):
     def __init__(self):
@@ -13,6 +14,7 @@ class DownloaderWindow(QMainWindow):
         self.download_button()
         self.filetype_box()
         self.filetype = "MP4"
+        self.download_status = DownloadStatusWidget(self)
 
     def set_url(self):
         url_label = QLabel("YouTube Video URL:", self)
@@ -70,7 +72,7 @@ class DownloaderWindow(QMainWindow):
                 stream = yt.streams.filter(only_audio=True).first()
             stream.download(filename=output_path + '.' + self.filetype.lower())
             self.statusBar().showMessage("Download Complete")
+            self.download_status.show_message("Download complete")
         except Exception as e:
             self.statusBar().showMessage(f"Error: {str(e)}")
-
-        self.message_box()
+            self.download_status.show_message(f"Error: {str(e)}")
