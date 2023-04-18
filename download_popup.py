@@ -13,3 +13,5 @@ class DownloadCompletedPopup(QDialog):
         layout.addWidget(label)
         layout.addWidget(ok_button)
         self.setLayout(layout)
+        
+        

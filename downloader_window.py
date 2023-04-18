@@ -15,6 +15,7 @@ class DownloaderWindow(QMainWindow):
         self.filetype_box()
         self.filetype = "MP4"
         self.download_status = DownloadStatusWidget(self)
+        
 
     def set_url(self):
         url_label = QLabel("YouTube Video URL:", self)
@@ -72,9 +73,8 @@ class DownloaderWindow(QMainWindow):
                 stream = yt.streams.filter(only_audio=True).first()
             stream.download(filename=output_path + '.' + self.filetype.lower())
             self.statusBar().showMessage("Download Complete")
-            self.download_status.show_message("Download complete")
             self.download_status.show_popup()
         except Exception as e:
             self.statusBar().showMessage(f"Error: {str(e)}")
-            self.download_status.show_message(f"Error: {str(e)}")
-            print(f"Error: {str(e)}")
+
+ #          print(f"Error: {str(e)}")
