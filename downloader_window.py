@@ -1,3 +1,4 @@
+import os
 from PyQt5.QtWidgets import QMainWindow, QFileDialog, QLabel, QLineEdit, QPushButton, QMessageBox, QComboBox
 from pytube import YouTube
 from download_widget import DownloadStatusWidget
@@ -16,7 +17,6 @@ class DownloaderWindow(QMainWindow):
         self.filetype = "MP4"
         self.download_status = DownloadStatusWidget(self)
         
-
     def set_url(self):
         url_label = QLabel("YouTube Video URL:", self)
         url_label.move(20, 20)
@@ -61,19 +61,27 @@ class DownloaderWindow(QMainWindow):
         msg_box.setWindowTitle("Download Complete")
         msg_box.setText("The video has been downloaded successfully.")
         msg_box.exec_()
-
+        
     def download_video(self):
         url = self.url_entry.text()
         output_path = self.filename_entry.text()
         try:
+            if not os.path.isdir(os.path.dirname(output_path)):
+             raise ValueError("Invalid output path")
+            if not os.access(os.path.dirname(output_path), os.W_OK):
+                raise ValueError("Output path is not writable")
+
             yt = YouTube(url)
             if self.filetype == "MP4":
                 stream = yt.streams.get_highest_resolution()
             else:
                 stream = yt.streams.filter(only_audio=True).first()
-            stream.download(filename=output_path + '.' + self.filetype.lower())
-            self.statusBar().showMessage("Download Complete")
-            self.download_status.show_popup()
+            if stream:
+                stream.download(filename=output_path + '.' + self.filetype.lower())
+                self.statusBar().showMessage("Download Complete")
+                self.download_status.show_popup()
+            else:
+                self.statusBar().showMessage("Error: Stream not available")
         except Exception as e:
             self.statusBar().showMessage(f"Error: {str(e)}")
 
