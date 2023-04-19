@@ -26,7 +26,7 @@ class DownloaderWindow(QMainWindow):
 
     def filetype_box(self):
         filetype_box = QComboBox(self)
-        filetype_box.addItems(["MP4", "MP3"])
+        filetype_box.addItems(["MP4", "MP3", "AVI"])
         filetype_box.setGeometry(680, 60, 100, 30)
         filetype_box.currentTextChanged.connect(self.text_changed)
 
@@ -72,7 +72,7 @@ class DownloaderWindow(QMainWindow):
                 raise ValueError("Output path is not writable")
 
             yt = YouTube(url)
-            if self.filetype == "MP4":
+            if self.filetype in ["MP4", "AVI"]:
                 stream = yt.streams.get_highest_resolution()
             else:
                 stream = yt.streams.filter(only_audio=True).first()
