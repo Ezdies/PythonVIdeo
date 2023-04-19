@@ -1,7 +1,10 @@
-import os
-from PyQt5.QtWidgets import QMainWindow, QFileDialog, QLabel, QLineEdit, QPushButton, QMessageBox, QComboBox
+from PyQt5.QtWidgets import QMainWindow, QFileDialog, QLabel, QLineEdit, QPushButton, QMessageBox, QComboBox, \
+    QProgressBar
+from download_popup import DownloadCompletedPopup
 from pytube import YouTube
-from download_widget import DownloadStatusWidget
+import time
+import os
+
 
 class DownloaderWindow(QMainWindow):
     def __init__(self):
@@ -15,7 +18,7 @@ class DownloaderWindow(QMainWindow):
         self.download_button()
         self.filetype_box()
         self.filetype = "MP4"
-        self.download_status = DownloadStatusWidget(self)
+        self.progress_bar()
         
     def set_url(self):
         url_label = QLabel("YouTube Video URL:", self)
@@ -47,8 +50,22 @@ class DownloaderWindow(QMainWindow):
 
     def download_button(self):
         download_button = QPushButton("Download", self)
-        download_button.setGeometry(20, 200, 100, 30)
+        download_button.setGeometry(20, 250, 640, 30)
         download_button.clicked.connect(self.download_video)
+
+    def progress_bar(self):
+        self.progress_bar = QProgressBar(self)
+        self.progress_bar.setGeometry(20, 200, 675, 30)
+
+    def progress_bar_loading(self):
+        self.progress_bar.setValue(0)
+        for i in range(101):
+            time.sleep(0.05)
+            self.progress_bar.setValue(i)
+
+    def show_popup(self):
+        popup = DownloadCompletedPopup(self)
+        popup.exec_()
 
     def browse_files(self):
         filename, _ = QFileDialog.getSaveFileName(self, "Save As", ".", self.filetype + " files (*." + self.filetype.lower() + ");;All files (*.*)")
@@ -61,7 +78,7 @@ class DownloaderWindow(QMainWindow):
         msg_box.setWindowTitle("Download Complete")
         msg_box.setText("The video has been downloaded successfully.")
         msg_box.exec_()
-        
+
     def download_video(self):
         url = self.url_entry.text()
         output_path = self.filename_entry.text()
@@ -77,12 +94,11 @@ class DownloaderWindow(QMainWindow):
             else:
                 stream = yt.streams.filter(only_audio=True).first()
             if stream:
+                self.progress_bar_loading()
                 stream.download(filename=output_path + '.' + self.filetype.lower())
+                self.show_popup()
                 self.statusBar().showMessage("Download Complete")
-                self.download_status.show_popup()
             else:
                 self.statusBar().showMessage("Error: Stream not available")
         except Exception as e:
             self.statusBar().showMessage(f"Error: {str(e)}")
-
- #          print(f"Error: {str(e)}")
