@@ -3,7 +3,8 @@ from PyQt5.QtGui import QFont
 from download_popup import DownloadCompletedPopup
 
 class DownloadStatusWidget(QLabel):
-    
+#   TEN PLIK JEST OBECNIE NIEUZYWANY, DODALEM GO DO DOWNLOADER_WINDOW
+#   BO TAK BYLO WYGODNIEJ
 #   for future purposes
 
     def __init__(self, parent=None):
