@@ -3,6 +3,7 @@ from PyQt5.QtWidgets import QMainWindow, QFileDialog, QLabel, QLineEdit, QPushBu
 from download_popup import DownloadCompletedPopup
 from pytube import YouTube
 import time
+import vlc
 import os
 
 
@@ -19,6 +20,8 @@ class DownloaderWindow(QMainWindow):
         self.filetype_box()
         self.filetype = "MP4"
         self.progress_bar()
+        self.video_player()
+        self.stop_button()
         
     def set_url(self):
         url_label = QLabel("YouTube Video URL:", self)
@@ -79,6 +82,24 @@ class DownloaderWindow(QMainWindow):
         msg_box.setText("The video has been downloaded successfully.")
         msg_box.exec_()
 
+    def video_player(self):
+        self.play_video_button = QPushButton("Play", self)
+        self.play_video_button.setGeometry(20, 300, 340, 30)
+        self.play_video_button.clicked.connect(self.play_video)
+
+    def play_video(self):
+        url = self.url_entry.text()
+        yt = YouTube(url)
+        stream = yt.streams.get_highest_resolution()
+        media = vlc.MediaPlayer(stream.url)
+        media.play()
+
+    # jeszcze nic nie robi
+    def stop_button(self):
+        self.stop_button = QPushButton("Stop", self)
+        self.stop_button.setGeometry(360, 300, 300, 30)
+        # self.stop_button.clicked.connect(self.stop_video)
+    
     def download_video(self):
         url = self.url_entry.text()
         output_path = self.filename_entry.text()
