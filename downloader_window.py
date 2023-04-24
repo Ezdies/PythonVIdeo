@@ -58,7 +58,7 @@ class DownloaderWindow(QMainWindow):
 
     def progress_bar(self):
         self.progress_bar = QProgressBar(self)
-        self.progress_bar.setGeometry(20, 200, 675, 30)
+        self.progress_bar.setGeometry(20, 200, 640, 30)
 
     def progress_bar_loading(self):
         self.progress_bar.setValue(0)
