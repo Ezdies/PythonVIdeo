@@ -1,14 +1,3 @@
-## Navigation
-
-- [YouTube Video Downloader](#youtube-video-downloader)
-  - [Prerequisites](#prerequisites)
-  - [Installation](#installation)
-  - [How to Use](#how-to-use)
-  - [In Progress](#in-progress)
-  - [Contributing](#contributing)
-  - [License](#license)
-  - [Acknowledgements](#acknowledgements)
-
 # YouTube Video Downloader
 
 YouTube Video Downloader is a simple application built with Python and PyQt5 that allows users to download videos from YouTube. It features a user-friendly interface and lets users select the video quality and download location.
@@ -66,6 +55,17 @@ This project is licensed under the MIT License.
 * [pytube](https://github.com/pytube/pytube)
 * [PyQt5](https://pypi.org/project/PyQt5/)
 
+## Navigation
+
+- [YouTube Video Downloader](#youtube-video-downloader)
+  - [Prerequisites](#prerequisites)
+  - [Installation](#installation)
+  - [How to Use](#how-to-use)
+  - [In Progress](#in-progress)
+  - [Contributing](#contributing)
+  - [License](#license)
+  - [Acknowledgements](#acknowledgements)
+  - [Navigation](#navigation)
 
 
 
