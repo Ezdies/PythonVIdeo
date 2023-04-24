@@ -31,6 +31,13 @@ Before running the program, you need to have the following installed:
 3. Click the "Download" button to start the download process. The program will display the download status in the status bar.
 4. Once the download is complete, a dialog box will appear to confirm the successful download.
 
+## In Progress
+
+- Adding a video player using QT multimedia: 
+
+  I am currently working on integrating a video player into the application using QT multimedia. This will allow users to watch videos within the application without having to open a separate media player. I am researching the best way to implement this feature and will be testing different approaches to ensure the video player is reliable and easy to use for our users.
+
+
 ## Contributing
 
 Contributions to this project are welcome! Here are some ways you can contribute:
