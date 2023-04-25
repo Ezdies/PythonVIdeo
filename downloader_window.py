@@ -21,7 +21,7 @@ class DownloaderWindow(QMainWindow):
         self.filetype = "MP4"
         self.progress_bar()
         self.video_player()
-        self.stop_button()
+
         
     def set_url(self):
         url_label = QLabel("YouTube Video URL:", self)
@@ -58,7 +58,7 @@ class DownloaderWindow(QMainWindow):
 
     def progress_bar(self):
         self.progress_bar = QProgressBar(self)
-        self.progress_bar.setGeometry(20, 200, 640, 30)
+        self.progress_bar.setGeometry(20, 200, 675, 30)
 
     def progress_bar_loading(self):
         self.progress_bar.setValue(0)
@@ -82,24 +82,38 @@ class DownloaderWindow(QMainWindow):
         msg_box.setText("The video has been downloaded successfully.")
         msg_box.exec_()
 
+
     def video_player(self):
-        self.play_video_button = QPushButton("Play", self)
-        self.play_video_button.setGeometry(20, 300, 340, 30)
-        self.play_video_button.clicked.connect(self.play_video)
+        self.playing = True
+        self.start_video_button()
+        self.play_stop_button()
 
-    def play_video(self):
-        url = self.url_entry.text()
-        yt = YouTube(url)
-        stream = yt.streams.get_highest_resolution()
-        media = vlc.MediaPlayer(stream.url)
-        media.play()
+    def start_video_button(self):
+        self.play_video_button = QPushButton("Start", self)
+        self.play_video_button.setGeometry(20, 300, 640, 30)
+        self.play_video_button.clicked.connect(self.start_video)
 
-    # jeszcze nic nie robi
-    def stop_button(self):
-        self.stop_button = QPushButton("Stop", self)
-        self.stop_button.setGeometry(360, 300, 300, 30)
-        # self.stop_button.clicked.connect(self.stop_video)
-    
+    def start_video(self):
+        self.url = self.url_entry.text()
+        self.yt = YouTube(self.url)
+        self.stream = self.yt.streams.get_highest_resolution()
+        self.player = vlc.MediaPlayer(self.stream.url)
+        self.player.play()
+
+    def play_stop_button(self):
+        self.stop_button = QPushButton("Play / Stop", self)
+        self.stop_button.setGeometry(20, 350, 640, 30)
+        self.stop_button.clicked.connect(self.play_stop_video)
+
+    def play_stop_video(self):
+        if self.playing:
+            self.player.pause()
+            self.playing = False
+        else:
+            self.player.play()
+            self.playing = True
+
+
     def download_video(self):
         url = self.url_entry.text()
         output_path = self.filename_entry.text()

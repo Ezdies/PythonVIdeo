@@ -18,7 +18,7 @@ Before running the program, you need to have the following installed:
 
 2. Install the required packages:
 
-``pip install pyqt5 pytube``
+``pip install pyqt5 pytube python-vlc``
 
 3. Run the program
 
