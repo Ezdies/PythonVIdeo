@@ -13,6 +13,8 @@ import os
 
 
 # Define the constants
+WINDOW_WIDTH = 500 # The window width
+WINDOW_HEIGHT = 300 # The window height
 DOWNLOADER_WINDOW_TITLE = "YouTube Video Downloader" # The window title
 DOWNLOADER_VIDEO_URL_LABEL = "YouTube Video URL:" # The URL label
 SAVE_AS_LABEL = "Save As:" # The filename label
@@ -66,6 +68,8 @@ class Downloader(QMainWindow):
         # Set some main window's properties
         # Set the window title
         self.setWindowTitle(DOWNLOADER_WINDOW_TITLE)
+        # Set the window width and height
+        self.setFixedSize(WINDOW_WIDTH, WINDOW_HEIGHT)
         # Set downloader window size
         self.setGeometry(100, 100, 500, 300)
 
