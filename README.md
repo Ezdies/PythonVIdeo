@@ -2,7 +2,7 @@
 
 YouTube Video Downloader is a simple application built with Python and PyQt5 user interface that allows users to download videos in multiple formats from YouTube.
 
-## Requierments
+## Requirements
 
 - `Python 3`
 - `PyQt5`

@@ -1,4 +1,4 @@
-from DownloadPopup import DownloadCompletedPopup
+from DownloaderPopup import DownloadCompletedPopup
 from PyQt5.QtWidgets import QProgressBar
 from PyQt5.QtWidgets import QMainWindow
 from PyQt5.QtWidgets import QMessageBox
@@ -10,6 +10,7 @@ from PyQt5.QtWidgets import QLabel
 from pytube import YouTube
 import time
 import os
+
 
 
 # Define the constants
@@ -29,6 +30,7 @@ MESSAGE_BOX_TEXT = "The video has been downloaded successfully." # The message b
 EXCEPTION_MESSAGE_STREAM_NOT_AVAILABLE = "Error: Stream not available" # The stream not available exception message
 EXCEPTION_MESSAGE_OPERATING_SYSTEM_ACCESS = "Error: Output path is not writable" # The operating system access exception message
 EXCEPTION_MESSAGE_OPERATING_SYSTEM_PATH_IS_NOT_DIRECTORY = "Error: Invalid output path" # The operating system path is not directory exception message
+
 
 
 class Downloader(QMainWindow):
@@ -71,7 +73,7 @@ class Downloader(QMainWindow):
         # Set the window width and height
         self.setFixedSize(WINDOW_WIDTH, WINDOW_HEIGHT)
         # Set downloader window size
-        self.setGeometry(100, 100, 500, 300)
+        self.setGeometry(100, 100, WINDOW_WIDTH, WINDOW_HEIGHT)
 
         # Call the application components
         # Set the URL label and entry
