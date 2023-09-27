@@ -97,6 +97,7 @@ class Downloader(QMainWindow):
         # Set the default filetype
         self.filetype = DEFAULT_FILETYPE
 
+
     def urlLabel(self):
         """
         This method creates the URL label and entry.

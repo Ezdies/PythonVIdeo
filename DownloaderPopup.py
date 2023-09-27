@@ -53,6 +53,7 @@ class DownloadCompletedPopup(QDialog):
         # Run the download completed popup
         self.runDownloadCompletedPopup()
 
+
     def runDownloadCompletedPopup(self):
         """
         This method runs the download completed popup window.
