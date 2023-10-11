@@ -19,7 +19,7 @@ git clone https://github.com/Ezdies/PythonVIdeo.git
 or
 
 ```
-git clone https://github.com/tukarp/Youtube-Video-Downloader
+git clone https://github.com/tukarp/Youtube-Video-Downloader.git
 ```
 
 ### Install packages
@@ -32,6 +32,16 @@ pip install pyqt5 pytube
 
 ```
 python main.py
+```
+
+### How to create an executable file
+
+```
+pip install pyinstaller
+```
+
+```
+pyinstaller --windowed --name "Video Downloader" main.py
 ```
 
 ## How to use
