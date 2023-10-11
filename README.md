@@ -13,13 +13,13 @@ YouTube Video Downloader is a simple application built with Python and PyQt5 use
 ### Download repository
 
 ```
-git clone https://github.com/Ezdies/PythonVIdeo.git
+https://github.com/Ezdies/PythonVIdeo
 ```
 
 or
 
 ```
-git clone https://github.com/tukarp/Youtube-Video-Downloader.git
+https://github.com/tukarp/Youtube-Video-Downloader
 ```
 
 ### Install packages
@@ -28,31 +28,29 @@ git clone https://github.com/tukarp/Youtube-Video-Downloader.git
 pip install pyqt5 pytube
 ```
 
-### Run the application
+## Run the application
+
+### Run the script
 
 ```
 python main.py
 ```
 
-### How to create an executable file
+### Run the executable file
 
 ```
-pip install pyinstaller
-```
-
-```
-pyinstaller --windowed --name "Video Downloader" main.py
+Video Downloader.exe
 ```
 
 ## How to use
 
 - Open the program and enter a valid YouTube video URL in the input field.
 
-- Choose a destination folder by either typing the path or clicking the `Browse files` button to open a file dialog.
+- Choose a destination folder by either typing the path or clicking the `Browse files` button to select a path.
 
-- Click the `Download` button to start the download process. The program will display the download status in the status bar.
+- Click the `Download` button to start the download process. The program will display the download status in the progress bar.
 
-- Once the download is complete, a dialog box will appear to confirm the successful download.
+- Once the download is complete, a `Pop-Up` message will appear confirming the download.
 
 ## Acknowledgements
 
