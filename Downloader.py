@@ -14,7 +14,7 @@ import os
 
 
 # Define the constants
-WINDOW_WIDTH = 500 # The window width
+WINDOW_WIDTH = 520 # The window width
 WINDOW_HEIGHT = 300 # The window height
 DOWNLOADER_WINDOW_TITLE = "YouTube Video Downloader" # The window title
 DOWNLOADER_VIDEO_URL_LABEL = "YouTube Video URL:" # The URL label
@@ -38,20 +38,20 @@ class Downloader(QMainWindow):
     Class that creates the main window of the downloader application.
 
     Attributes:
-        QMainWindow (QMainWindow): The parent class.
+        Main window (QMainWindow): The parent class.
 
     Methods:
         __init__: The constructor for Downloader class.
         urlLabel: This method creates the URL label and entry.
         filenameLabel: This method creates the filename label and entry.
         filetypeBox: This method creates the filetype box.
-        browseFilesButton: This method creates the browse button.
-        browseFiles: This method opens the browse window.
+        browseFilesButton: This method creates the browse files button.
+        browseFilesWindow: This method opens the browse files window.
         progressBar: This method creates the progress bar.
-        progressBarLoading: This method creates the progress bar.
-        showPopup: This method shows the popup.
-        messageBox: This method shows the message box.
-        downloadButton: This method downloads the video.
+        progressBarLoading: This method loads the progress bar.
+        showDownloadCompletedPopup: This method shows the download completed popup.
+        downloadCompletedMessageBox: This method shows the download completed message box.
+        downloadButton: This method creates the download video button.
         downloadVideo: This method downloads the video.
     """
     def __init__(self):
@@ -118,10 +118,10 @@ class Downloader(QMainWindow):
         url_label.resize(200, 30)
 
         # Create URL entry
-        self.url_entry = QLineEdit(self)
+        self.urlEntry = QLineEdit(self)
 
         # Set URL entry geometry
-        self.url_entry.setGeometry(20, 60, 350, 30)
+        self.urlEntry.setGeometry(20, 60, 350, 30)
 
 
     def filenameLabel(self):
@@ -144,10 +144,10 @@ class Downloader(QMainWindow):
         filename_label.resize(200, 30)
 
         # Create filename entry
-        self.filename_entry = QLineEdit(self)
+        self.filenameEntry = QLineEdit(self)
 
         # Set filename entry geometry
-        self.filename_entry.setGeometry(20, 140, 350, 30)
+        self.filenameEntry.setGeometry(20, 140, 350, 30)
 
 
     def filetypeBox(self):
@@ -170,22 +170,22 @@ class Downloader(QMainWindow):
         filetype_box.addItems([FILETYPE_MP4, FILETYPE_MP3, FILETYPE_AVI])
 
         # Connect the filetype box to the text_changed method
-        filetype_box.currentTextChanged.connect(self.text_changed)
+        filetype_box.currentTextChanged.connect(self.textChanged)
 
 
-    def text_changed(self, str):
+    def textChanged(self, changedTextString):
         """
         This method sets the filetype attribute to the selected item in the filetype box.
 
         Parameters:
             self (Downloader): The Downloader object.
-            str (str): The selected item in the filetype box.
+            changedTextString (str): The selected item in the filetype box.
 
         Returns:
             None
         """
         # Set the filetype attribute to the selected item in the filetype box
-        self.filetype = str
+        self.filetype = changedTextString
 
 
     def browseFilesButton(self):
@@ -205,10 +205,10 @@ class Downloader(QMainWindow):
         browse_files_button.setGeometry(385, 140, 100, 30)
 
         # Connect the browse button to the browseFiles method
-        browse_files_button.clicked.connect(self.browseFiles)
+        browse_files_button.clicked.connect(self.browseFilesWindow)
 
 
-    def browseFiles(self):
+    def browseFilesWindow(self):
         """
         This method opens the browse window.
 
@@ -224,7 +224,7 @@ class Downloader(QMainWindow):
         # If the filename is not empty
         if filename:
             # Set the filename entry text to the selected file
-            self.filename_entry.setText(filename)
+            self.filenameEntry.setText(filename)
 
 
     def progressBar(self):
@@ -238,10 +238,10 @@ class Downloader(QMainWindow):
             None
         """
         # Create progress bar
-        self.progressBar = QProgressBar(self)
+        self.downloadProgressBar = QProgressBar(self)
 
         # Set progress bar geometry
-        self.progressBar.setGeometry(20, 200, 500, 30)
+        self.downloadProgressBar.setGeometry(20, 200, 500, 30)
 
 
     def progressBarLoading(self):
@@ -255,7 +255,7 @@ class Downloader(QMainWindow):
             None
         """
         # Set progress bar value to 0
-        self.progressBar.setValue(0)
+        self.downloadProgressBar.setValue(0)
 
         # Loop through the progress bar values
         for i in range(101):
@@ -263,15 +263,12 @@ class Downloader(QMainWindow):
             time.sleep(0.05)
 
             # Set progress bar value to iteration value
-            self.progressBar.setValue(i)
+            self.downloadProgressBar.setValue(i)
 
 
-    def showPopup(self):
+    def showDownloadCompletedPopup(self):
         """
-        This method shows the popup.
-
-        Parameters:
-            self (Downloader): The Downloader object.
+        This method shows download completed popup.
 
         Returns:
             None
@@ -283,9 +280,9 @@ class Downloader(QMainWindow):
         popup.exec_()
 
 
-    def messageBox(self):
+    def downloadCompletedMessageBox(self):
         """
-        This method shows the message box.
+        This method shows the download completed message box.
 
         Parameters:
             self (Downloader): The Downloader object.
@@ -320,13 +317,13 @@ class Downloader(QMainWindow):
             None
         """
         # Create download button
-        download_button = QPushButton(DOWNLOAD_BUTTON_TEXT, self)
+        downloadButton = QPushButton(DOWNLOAD_BUTTON_TEXT, self)
 
         # Set download button geometry
-        download_button.setGeometry(20, 250, 465, 30)
+        downloadButton.setGeometry(20, 250, 465, 30)
 
         # Connect the download button to the download_video method
-        download_button.clicked.connect(self.downloadVideo)
+        downloadButton.clicked.connect(self.downloadVideo)
 
 
     def downloadVideo(self):
@@ -340,19 +337,19 @@ class Downloader(QMainWindow):
             None
         """
         # Get the URL
-        url = self.url_entry.text()
+        url = self.urlEntry.text()
 
         # Get the output path
-        output_path = self.filename_entry.text()
+        outputPath = self.filenameEntry.text()
 
         # Try to download the video
         try:
             # If the output path is not a directory
-            if not os.path.isdir(os.path.dirname(output_path)):
+            if not os.path.isdir(os.path.dirname(outputPath)):
                 # Raise an ValueError exception
                 raise ValueError(EXCEPTION_MESSAGE_OPERATING_SYSTEM_PATH_IS_NOT_DIRECTORY)
             # If the output path is not writable
-            if not os.access(os.path.dirname(output_path), os.W_OK):
+            if not os.access(os.path.dirname(outputPath), os.W_OK):
                 # Raise an ValueError exception
                 raise ValueError(EXCEPTION_MESSAGE_OPERATING_SYSTEM_ACCESS)
 
@@ -373,10 +370,10 @@ class Downloader(QMainWindow):
                 self.progressBarLoading()
 
                 # Download the video
-                youtubeStream.download(filename=output_path + '.' + self.filetype.lower())
+                youtubeStream.download(filename=outputPath)
 
                 # Show the popup
-                self.show_popup()
+                self.showDownloadCompletedPopup()
 
                 # Show the message box
                 self.statusBar().showMessage(MESSAGE_DOWNLOAD_COMPLETED)
@@ -388,4 +385,4 @@ class Downloader(QMainWindow):
         # If an exception occurs
         except Exception as e:
             # Show the exception message
-            self.statusBar().showMessage(f"Error: {str(e)}")
+            self.statusBar().showMessage(str(e))
