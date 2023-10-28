@@ -1,18 +1,18 @@
 # -*- mode: python ; coding: utf-8 -*-
 
+
 a = Analysis(
     ['main.py'],
     pathex=[],
     binaries=[],
     datas=[],
-    hiddenimports=['Downloader.py', 'DownloaderPopup.py'],
+    hiddenimports=[],
     hookspath=[],
     hooksconfig={},
     runtime_hooks=[],
     excludes=[],
     noarchive=False,
 )
-
 pyz = PYZ(a.pure)
 
 exe = EXE(
@@ -32,7 +32,6 @@ exe = EXE(
     codesign_identity=None,
     entitlements_file=None,
 )
-
 coll = COLLECT(
     exe,
     a.binaries,

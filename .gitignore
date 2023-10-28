@@ -1,2 +1,8 @@
+# Caches and virtual environments
 __pycache__/
+.vscode
 .idea
+
+# PyInstaller generated files
+build/
+dist/
