@@ -80,7 +80,7 @@ class DownloaderMainWindow(QMainWindow):
         self.progressBar = None                                 # Progress bar
         self.downloadButton = None                              # Download button
         self.downloadCompletedPopUp = None                      # Download completed pop-up
-        self.fileType = downloaderConstants.DEFAULT_FILE_TYPE    # File type
+        self.fileType = downloaderConstants.DEFAULT_FILE_TYPE   # File type
 
         # Initialize the downloader components attributes
         self.downloader = Downloader()                          # Downloader object
