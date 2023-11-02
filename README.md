@@ -1,4 +1,4 @@
-<img src="Youtube-Video-Downloader-Logo.png" alt="YouTube Video Downloader Logo" width="512" height="512"/>
+<img src="Youtube-Video-Downloader-logo.png" alt="YouTube Video Downloader Logo" width="512" height="512">
 
 # YouTube Video Downloader
 
