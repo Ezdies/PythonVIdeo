@@ -32,7 +32,7 @@ BUTTON_TEXT_BROWSE_FILES = "Browse files" # The browse files button text
 MESSAGE_BOX_TEXT = "The video has been downloaded successfully." # The message box text
 MESSAGE_DOWNLOAD_COMPLETED = "Download completed" # The download completed message
 
-# Download completed popup properties
+# Download completed pop-up properties
 DOWNLOAD_COMPLETED_POPUP_TITLE = "Download Completed" # The download completed popup title
 DOWNLOAD_COMPLETED_POPUP_TEXT = "The download has been completed." # The download completed popup text
 
