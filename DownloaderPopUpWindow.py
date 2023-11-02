@@ -4,21 +4,23 @@ from PyQt5.QtWidgets import QVBoxLayout
 from PyQt5.QtWidgets import QPushButton
 from PyQt5.QtWidgets import QDialog
 from PyQt5.QtWidgets import QLabel
+from PyQt5.QtGui import QFont
+from PyQt5.QtGui import QIcon
 from PyQt5.QtCore import Qt
 
-class DownloadCompletedPopup(QDialog):
+class DownloadCompletedPopUp(QDialog):
     """
-    Class that creates a popup window that appears when the download is completed.
+    Class that creates a pop-up window that appears when the download is completed.
 
     Attributes:
         parent (QWidget): The parent widget.
     """
     def __init__(self, parent=None):
         """
-        The constructor for DownloadCompletedPopup class.
+        The constructor for DownloadCompletedPopUp class.
 
         Parameters:
-            self (QDialog): The DownloadCompletedPopup object.
+            self (QDialog): The DownloadCompletedPopUp object.
 
         Returns:
             None
@@ -35,6 +37,12 @@ class DownloadCompletedPopup(QDialog):
 
         # Set the window width and height
         self.setFixedSize(downloaderConstants.POPUP_WINDOW_WIDTH, downloaderConstants.POPUP_WINDOW_HEIGHT)
+
+        # Set the window font
+        self.setFont(QFont(downloaderConstants.DOWNLOADER_FONT, downloaderConstants.DOWNLOADER_FONT_SIZE))
+
+        # Set the window icon
+        self.setWindowIcon(QIcon(downloaderConstants.DOWNLOADER_ICON_PATH))
 
         # Set the window content text
         self.label = QLabel(downloaderConstants.DOWNLOAD_COMPLETED_POPUP_TEXT)

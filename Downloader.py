@@ -42,7 +42,7 @@ class Downloader:
             youtubeVideo = YouTube(url)
 
             # If the filetype is MP4 or AVI
-            if filetype in [downloaderConstants.FILETYPE_MP4, downloaderConstants.FILETYPE_AVI]:
+            if filetype in [downloaderConstants.FILE_TYPE_MP4, downloaderConstants.FILE_TYPE_AVI]:
                 # Get the highest resolution stream
                 youtubeStream = youtubeVideo.streams.get_highest_resolution()
             # If the filetype is MP3
@@ -56,7 +56,7 @@ class Downloader:
                 youtubeStream.download(filename=outputPath)
 
                 # Show the download completed message in the status bar
-                return downloaderConstants.MESSAGE_DOWNLOAD_COMPLETED
+                return downloaderConstants.DOWNLOAD_COMPLETED_MESSAGE
             # If the stream is not available
             else:
                 # Show a stream not available exception message in the status bar
