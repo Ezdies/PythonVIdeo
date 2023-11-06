@@ -210,13 +210,12 @@ class DownloaderMainWindow(QMainWindow):
                                      downloaderConstants.FILE_TYPE_BOX_WIDTH,
                                      downloaderConstants.FILE_TYPE_BOX_HEIGHT)
 
-        # Add items to the filetype box
-        self.fileTypeBox.addItems([
-            downloaderConstants.FILE_TYPE_MP3,   # MP3 file type string - selected by default
-            downloaderConstants.FILE_TYPE_MP4,   # MP4 file type string
-            downloaderConstants.FILE_TYPE_AVI])  # AVI file type string
+        # Add items to the file type box
+        self.fileTypeBox.addItems([downloaderConstants.FILE_TYPE_MP3,  # MP3 file type string - selected by default
+                                   downloaderConstants.FILE_TYPE_MP4,  # MP4 file type string
+                                   downloaderConstants.FILE_TYPE_AVI]) # AVI file type string
 
-        # Connect the file type box to the changeFileType method
+        # Connect the file type box to the change file type method
         self.fileTypeBox.currentTextChanged.connect(self.changeFileType)
 
 
@@ -239,7 +238,7 @@ class DownloaderMainWindow(QMainWindow):
                                            downloaderConstants.BROWSE_FILES_BUTTON_WIDTH,
                                            downloaderConstants.BROWSE_FILES_BUTTON_HEIGHT)
 
-        # Connect the browse button to the browseFiles method
+        # Connect the browse button to the browse files method
         self.browseFilesButton.clicked.connect(self.showBrowseFilesWindow)
 
 
@@ -321,6 +320,7 @@ class DownloaderMainWindow(QMainWindow):
                                                   " files (*." + \
                                                   self.fileType.lower() + \
                                                   ");;All files (*.*)")
+
         # If the file name is not empty
         if fileName:
             # Set the file name entry text to the selected file
@@ -415,7 +415,7 @@ class DownloaderMainWindow(QMainWindow):
         Returns:
             None
         """
-        # Set the file type attribute to the selected item in the filetype box
+        # Set the file type attribute to the selected item in the file type box
         self.fileType = changedTextString
 
         # Set the file name entry text to the changed file type
