@@ -86,7 +86,7 @@ class DownloaderMainWindow(QMainWindow):
         self.fileType = downloaderConstants.DEFAULT_FILE_TYPE   # File type
 
         # Initialize the downloader components attributes
-        self.downloader = Downloader()                          # Downloader object
+        self.downloader = Downloader()
 
         # Initialize the main window components
         self.initializeMainWindowComponents()
@@ -215,9 +215,9 @@ class DownloaderMainWindow(QMainWindow):
                                      downloaderConstants.FILE_TYPE_BOX_HEIGHT)
 
         # Add items to the filetype box
-        self.fileTypeBox.addItems([downloaderConstants.FILE_TYPE_MP3,   # MP3 file type string - selected by default
-                                   downloaderConstants.FILE_TYPE_MP4,   # MP4 file type string
-                                   downloaderConstants.FILE_TYPE_AVI])  # AVI file type string
+        self.fileTypeBox.addItems([downloaderConstants.FILE_TYPE_MP3,
+                                   downloaderConstants.FILE_TYPE_MP4,
+                                   downloaderConstants.FILE_TYPE_AVI])
 
         # Connect the file type box to the changeFileType method
         self.fileTypeBox.currentTextChanged.connect(self.changeFileType)
