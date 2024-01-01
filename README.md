@@ -20,27 +20,33 @@ https://github.com/Ezdies/PythonVIdeo
 
 or
 
-```
+```commandline
 https://github.com/tukarp/Video-Downloader
 ```
 
 ### Install packages
 
-```
+```commandline
 pip install pyqt5 pytube
+```
+
+or
+
+```commandline
+pip install -r requirements.txt
 ```
 
 ## Generate an executable file
 
 ### Install PyInstaller
 
-```
+```commandline
 pip install pyinstaller
 ```
 
 ### Generate the executable file
 
-```
+```commandline
 pyinstaller --windowed --name "Video Downloader" main.py
 ```
 
@@ -48,13 +54,13 @@ pyinstaller --windowed --name "Video Downloader" main.py
 
 ### Run the script
 
-```
+```commandline
 python main.py
 ```
 
 ### Run the executable file
 
-```
+```commandline
 Video Downloader.exe
 ```
 
