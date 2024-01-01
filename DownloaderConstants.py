@@ -12,6 +12,10 @@ DOWNLOADER_ICON_PATH = "Video-Downloader-logo.png"  # The logo path
 FONT = "Arial"                                      # The font
 FONT_SIZE = 10                                      # The font size
 
+# Default file name properties
+DEFAULT_VIDEO_FILE_NAME = "video"                   # The default video name
+DEFAULT_AUDIO_FILE_NAME = "audio"                   # The default audio name
+
 # URL label properties
 URL_LABEL_TEXT = "YouTube Video URL"                # The URL label
 URL_LABEL_X_AXIS = 20                               # X-axis
@@ -77,6 +81,10 @@ POPUP_WINDOW_HEIGHT = 75                            # The message box height
 # Download completed pop-up properties
 DOWNLOAD_COMPLETED_POPUP_TITLE = "Download Completed" # The download completed pop-up title
 DOWNLOAD_COMPLETED_POPUP_TEXT = "The download has been completed." # The download completed pop-up text
+
+# Download failed pop-up properties
+DOWNLOAD_FAILED_POPUP_TITLE = "Download Failed"     # The download failed pop-up title
+DOWNLOAD_FAILED_POPUP_TEXT = "The download has failed." # The download failed pop-up text
 
 # Button text properties
 BUTTON_TEXT_OK = "OK" # The OK button text

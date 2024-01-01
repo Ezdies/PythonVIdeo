@@ -13,7 +13,7 @@ from PyQt5.QtWidgets import QLabel
 from PyQt5.QtGui import QFont
 from PyQt5.QtGui import QIcon
 
-import threading
+import time
 import re
 import os
 
@@ -37,12 +37,13 @@ class DownloaderMainWindow(QMainWindow):
         initializeDownloadButton: This method initializes the download video button.
         initializeDownloadCompletedPopup: This method initializes the download completed popup.
         changeFileType: This method changes the file type attribute to the selected item in the file type box.
-        showBrowseFilesWindow: This method shows the browse files window.
-        showDownloadCompletedPopUp: This method shows download completed popup.
-        progressBarLoader: This method loads the progress bar while the video is downloading.
-        progressBarReset: This method resets the progress bar.
         getDefaultDownloadPath: This method gets the default download path.
         setDefaultDownloadPath: This method sets the default download path.
+        showBrowseFilesWindow: This method shows the browse files window.
+        progressBarLoader: This method loads the progress bar while the video is downloading.
+        progressBarReset: This method resets the progress bar.
+        setDownloadCompletedPopUpProperties: This method sets the download completed popup properties.
+        showDownloadCompletedPopUp: This method shows download completed popup.
         downloadVideo: This method downloads the video from the url and saves it to the output path.
     """
 
@@ -82,11 +83,13 @@ class DownloaderMainWindow(QMainWindow):
         self.browseFilesButton = None                           # Browse files button
         self.progressBar = None                                 # Progress bar
         self.downloadButton = None                              # Download button
-        self.downloadCompletedPopUp = None                      # Download completed pop-up
         self.fileType = downloaderConstants.DEFAULT_FILE_TYPE   # File type
 
         # Initialize the downloader components attributes
         self.downloader = Downloader()
+
+        # Initialize the download completed popup
+        self.downloadCompletedPopUp = DownloadCompletedPopUp(self)
 
         # Initialize the main window components
         self.initializeMainWindowComponents()
@@ -112,7 +115,7 @@ class DownloaderMainWindow(QMainWindow):
         self.initializeProgressBar()                            # Progress bar
         self.initializeDownloadButton()                         # Download button
         self.initializeDownloadCompletedPopup()                 # Download completed pop-up
-        self.setDefaultDownloadPath()                           # Default download path
+        self.setDefaultDownloadPath()                           # Set the default download path
 
 
     def initializeUrlLabel(self):
@@ -299,10 +302,7 @@ class DownloaderMainWindow(QMainWindow):
         Returns:
             None
         """
-        # Create download completed pop-up
-        self.downloadCompletedPopUp = DownloadCompletedPopUp(self)
-
-        # Reset the progress bar
+        # Connect the download completed popup to the resetting the progress bar
         self.downloadCompletedPopUp.finished.connect(self.progressBarReset)
 
 
@@ -321,75 +321,6 @@ class DownloaderMainWindow(QMainWindow):
 
         # Set the file name entry text to the changed file type
         self.fileNameEntry.setText(re.sub(r"\.\w+$", "." + self.fileType.lower(), self.fileNameEntry.text()))
-
-
-    def showBrowseFilesWindow(self):
-        """
-        This method shows the browse files window.
-
-        Parameters:
-            self (Downloader): The Downloader object.
-
-        Returns:
-            None
-        """
-        # Set the file name entry text to the selected file
-        fileName, _ = QFileDialog.getSaveFileName(self,
-                                                  "Save As",
-                                                  self.getDefaultDownloadPath(),
-                                                  self.fileType +
-                                                  " files (*." +
-                                                  self.fileType.lower() +
-                                                  ");;All files (*.*)")
-
-        # If the file name is not empty
-        if fileName:
-            # Set the file name entry text to the selected file
-            self.fileNameEntry.setText(fileName)
-
-
-    def showDownloadCompletedPopUp(self):
-        """
-        This method shows the download completed message box.
-
-        Parameters:
-            self (Downloader): The Downloader object.
-
-        Returns:
-            None
-        """
-        # Show completed download pop-up
-        self.downloadCompletedPopUp.exec_()
-
-
-    def progressBarLoader(self):
-        """
-        This method loads the progress bar while the video is downloading.
-
-        Parameters:
-            self (Downloader): The Downloader object.
-
-        Returns:
-            None
-        """
-        # For each number from 0 to 100
-        for i in range(101):
-            # Set progress bar value
-            self.progressBar.setValue(i)
-
-
-    def progressBarReset(self):
-        """
-        This method resets the progress bar.
-
-        Parameters:
-            self (Downloader): The Downloader object.
-
-        Returns:
-            None
-        """
-        # Reset the progress bar
-        QProgressBar.reset(self.progressBar)
 
 
     @staticmethod
@@ -427,14 +358,106 @@ class DownloaderMainWindow(QMainWindow):
 
         # Check if the file type is MP4 or AVI
         if self.fileType in [downloaderConstants.FILE_TYPE_MP4, downloaderConstants.FILE_TYPE_AVI]:
-            # Set the default download path to the video file
-            defaultDownloadPath = os.path.join(defaultDownloadPath, "video." + self.fileType.lower())
+            # Set the default download path to the default video file name
+            defaultDownloadPath = os.path.join(defaultDownloadPath, downloaderConstants.DEFAULT_VIDEO_FILE_NAME + "." + self.fileType.lower())
         else:
-            # Set the default download path to the audio file
-            defaultDownloadPath = os.path.join(defaultDownloadPath, "audio." + self.fileType.lower())
+            # Set the default download path to the default audio file name
+            defaultDownloadPath = os.path.join(defaultDownloadPath, downloaderConstants.DEFAULT_AUDIO_FILE_NAME + "." + self.fileType.lower())
 
         # Set the file name entry text to the default download path
         self.fileNameEntry.setText(defaultDownloadPath)
+
+
+    def showBrowseFilesWindow(self):
+        """
+        This method shows the browse files window.
+
+        Parameters:
+            self (Downloader): The Downloader object.
+
+        Returns:
+            None
+        """
+        # Set the file name entry text to the selected file
+        fileName, _ = QFileDialog.getSaveFileName(self,
+                                                  "Save As",
+                                                  self.getDefaultDownloadPath(),
+                                                  self.fileType +
+                                                  " files (*." +
+                                                  self.fileType.lower() +
+                                                  ");;All files (*.*)")
+
+        # If the file name is not empty
+        if fileName:
+            # Set the file name entry text to the selected file
+            self.fileNameEntry.setText(fileName)
+
+
+    def progressBarLoader(self):
+        """
+        This method loads the progress bar while the video is downloading.
+
+        Parameters:
+            self (Downloader): The Downloader object.
+
+        Returns:
+            None
+        """
+        # For each number from 0 to 100
+        for i in range(101):
+            # Set progress bar value
+            self.progressBar.setValue(i)
+
+            # Sleep for 0.1 seconds
+            time.sleep(0.01)
+
+
+    def progressBarReset(self):
+        """
+        This method resets the progress bar.
+
+        Parameters:
+            self (Downloader): The Downloader object.
+
+        Returns:
+            None
+        """
+        # Reset the progress bar
+        QProgressBar.reset(self.progressBar)
+
+
+    def setDownloadCompletedPopUpProperties(self, isDownloadSuccessful):
+        """
+        This method sets the download completed popup properties.
+
+        Parameters:
+            self (Downloader): The Downloader object.
+            isDownloadSuccessful (bool): The download status (True if the download is successful, False if the download is not successful).
+
+        Returns:
+            None
+        """
+        # Check if the download is successful
+        if isDownloadSuccessful:
+            # Set the download completed popup properties to success
+            self.downloadCompletedPopUp.setPopUpPropertiesToSuccess()
+        else:
+            # Set the download completed popup properties to failure
+            self.downloadCompletedPopUp.setPopUpPropertiesToFailure()
+
+
+    def showDownloadCompletedPopUp(self):
+        """
+        This method shows the download completed message box.
+
+        Parameters:
+            self (Downloader): The Downloader object.
+
+        Returns:
+            None
+        """
+        # Show completed download pop-up
+        self.downloadCompletedPopUp.exec_()
 
 
     def downloadVideo(self):
@@ -456,23 +479,19 @@ class DownloaderMainWindow(QMainWindow):
         # Get the output path
         outputPath = self.fileNameEntry.text()
 
-        # Create a thread for the downloader
-        downloaderThread = threading.Thread(target=self.downloader.downloadYoutubeVideo, args=(url, fileType, outputPath))
+        # Download the YouTube video and get the result message
+        result = self.downloader.downloadYoutubeVideo(url, fileType, outputPath)
 
-        # Create a thread for the progress bar loader
-        downloadProgressThread = threading.Thread(target=self.progressBarLoader)
+        # Check if the video downloaded successfully
+        if result is downloaderConstants.DOWNLOAD_COMPLETED_MESSAGE:
+            # Load the progress bar
+            self.progressBarLoader()
 
-        # Start the downloader thread
-        downloaderThread.start()
+            # Set the download completed popup properties to success
+            self.downloadCompletedPopUp.setPopUpPropertiesToSuccess()
+        else:
+            # Set the download completed popup properties to failure
+            self.downloadCompletedPopUp.setPopUpPropertiesToFailure()
 
-        # Start the progress bar loader thread
-        downloadProgressThread.start()
-
-        # Wait for the downloader thread to finish
-        downloaderThread.join()
-
-        # Wait for the progress bar loader thread to finish
-        downloadProgressThread.join()
-
-        # Show the download completed pop-up
+        # Show the download completed popup
         self.showDownloadCompletedPopUp()

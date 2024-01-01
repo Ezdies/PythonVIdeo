@@ -14,7 +14,7 @@ Video Downloader is a simple application built with Python and PyQt5 user interf
 
 ### Download repository
 
-```
+```commandline
 https://github.com/Ezdies/PythonVIdeo
 ```
 
