@@ -13,8 +13,9 @@ from PyQt5.QtWidgets import QLabel
 from PyQt5.QtGui import QFont
 from PyQt5.QtGui import QIcon
 
-import time
+import threading
 import re
+import os
 
 class DownloaderMainWindow(QMainWindow):
     """
@@ -26,8 +27,8 @@ class DownloaderMainWindow(QMainWindow):
     Methods:
         __init__: The constructor for DownloaderMainWindow class.
         initializeMainWindowComponents: This method initializes the main window components.
-        initializeUrlLabel: This method initializes the URL label.
-        initializeUrlEntry: This method initializes the URL entry.
+        initializeUrlLabel: This method initializes the url label.
+        initializeUrlEntry: This method initializes the url entry.
         initializeFileNameLabel: This method initializes the file name label.
         initializeFileNameEntry: This method initializes the file name entry.
         initializeFileTypeBox: This method initializes the file type box.
@@ -35,12 +36,14 @@ class DownloaderMainWindow(QMainWindow):
         initializeProgressBar: This method initializes the progress bar.
         initializeDownloadButton: This method initializes the download video button.
         initializeDownloadCompletedPopup: This method initializes the download completed popup.
+        changeFileType: This method changes the file type attribute to the selected item in the file type box.
         showBrowseFilesWindow: This method shows the browse files window.
         showDownloadCompletedPopUp: This method shows download completed popup.
         progressBarLoader: This method loads the progress bar while the video is downloading.
         progressBarReset: This method resets the progress bar.
-        downloadVideo: This method downloads the video.
-        changeFileType: This method changes the file type attribute to the selected item in the file type box.
+        getDefaultDownloadPath: This method gets the default download path.
+        setDefaultDownloadPath: This method sets the default download path.
+        downloadVideo: This method downloads the video from the url and saves it to the output path.
     """
 
 
@@ -65,14 +68,14 @@ class DownloaderMainWindow(QMainWindow):
         self.setFixedSize(downloaderConstants.MAIN_WINDOW_WIDTH, downloaderConstants.MAIN_WINDOW_HEIGHT)
 
         # Set the window font
-        self.setFont(QFont(downloaderConstants.DOWNLOADER_FONT, downloaderConstants.DOWNLOADER_FONT_SIZE))
+        self.setFont(QFont(downloaderConstants.FONT, downloaderConstants.FONT_SIZE))
 
         # Set the window icon
         self.setWindowIcon(QIcon(downloaderConstants.DOWNLOADER_ICON_PATH))
 
         # Initialize the main window components and attributes
-        self.urlLabel = None                                    # URL label
-        self.urlEntry = None                                    # URL entry
+        self.urlLabel = None                                    # url label
+        self.urlEntry = None                                    # url entry
         self.fileNameLabel = None                               # File name label
         self.fileNameEntry = None                               # File name entry
         self.fileTypeBox = None                                 # File type box
@@ -80,7 +83,7 @@ class DownloaderMainWindow(QMainWindow):
         self.progressBar = None                                 # Progress bar
         self.downloadButton = None                              # Download button
         self.downloadCompletedPopUp = None                      # Download completed pop-up
-        self.fileType = downloaderConstants.DEFAULT_FILE_TYPE    # File type
+        self.fileType = downloaderConstants.DEFAULT_FILE_TYPE   # File type
 
         # Initialize the downloader components attributes
         self.downloader = Downloader()                          # Downloader object
@@ -100,8 +103,8 @@ class DownloaderMainWindow(QMainWindow):
             None
         """
         # Initialize the main window components
-        self.initializeUrlLabel()                               # URL label
-        self.initializeUrlEntry()                               # URL entry
+        self.initializeUrlLabel()                               # Url label
+        self.initializeUrlEntry()                               # Url entry
         self.initializeFileNameLabel()                          # File name label
         self.initializeFileNameEntry()                          # File name entry
         self.initializeFileTypeBox()                            # File type box
@@ -109,11 +112,12 @@ class DownloaderMainWindow(QMainWindow):
         self.initializeProgressBar()                            # Progress bar
         self.initializeDownloadButton()                         # Download button
         self.initializeDownloadCompletedPopup()                 # Download completed pop-up
+        self.setDefaultDownloadPath()                           # Default download path
 
 
     def initializeUrlLabel(self):
         """
-        This method initializes the URL label.
+        This method initializes the Url label.
 
         Parameters:
             self (Downloader): The Downloader object.
@@ -121,10 +125,10 @@ class DownloaderMainWindow(QMainWindow):
         Returns:
             None
         """
-        # Create URL label
-        self.urlLabel = QLabel(downloaderConstants.VIDEO_URL_LABEL, self)
+        # Create Url label
+        self.urlLabel = QLabel(downloaderConstants.URL_LABEL_TEXT, self)
 
-        # Set URL label geometry
+        # Set url label geometry
         self.urlLabel.setGeometry(downloaderConstants.URL_LABEL_X_AXIS,
                                   downloaderConstants.URL_LABEL_Y_AXIS,
                                   downloaderConstants.URL_LABEL_WIDTH,
@@ -133,7 +137,7 @@ class DownloaderMainWindow(QMainWindow):
 
     def initializeUrlEntry(self):
         """
-        This method initializes the URL entry.
+        This method initializes the url entry.
 
         Parameters:
             self (Downloader): The Downloader object.
@@ -141,10 +145,10 @@ class DownloaderMainWindow(QMainWindow):
         Returns:
             None
         """
-        # Create URL entry
+        # Create url entry
         self.urlEntry = QLineEdit(self)
 
-        # Set URL entry geometry
+        # Set url entry geometry
         self.urlEntry.setGeometry(downloaderConstants.URL_ENTRY_X_AXIS,
                                   downloaderConstants.URL_ENTRY_Y_AXIS,
                                   downloaderConstants.URL_ENTRY_WIDTH,
@@ -162,7 +166,7 @@ class DownloaderMainWindow(QMainWindow):
             None
         """
         # Create file name label
-        self.fileNameLabel = QLabel(downloaderConstants.FILE_NAME_LABEL_SAVE_AS, self)
+        self.fileNameLabel = QLabel(downloaderConstants.FILE_NAME_LABEL_TEXT, self)
 
         # Set file name label geometry
         self.fileNameLabel.setGeometry(downloaderConstants.FILE_NAME_LABEL_X_AXIS,
@@ -211,10 +215,9 @@ class DownloaderMainWindow(QMainWindow):
                                      downloaderConstants.FILE_TYPE_BOX_HEIGHT)
 
         # Add items to the filetype box
-        self.fileTypeBox.addItems([
-            downloaderConstants.FILE_TYPE_MP3,   # MP3 file type string - selected by default
-            downloaderConstants.FILE_TYPE_MP4,   # MP4 file type string
-            downloaderConstants.FILE_TYPE_AVI])  # AVI file type string
+        self.fileTypeBox.addItems([downloaderConstants.FILE_TYPE_MP3,   # MP3 file type string - selected by default
+                                   downloaderConstants.FILE_TYPE_MP4,   # MP4 file type string
+                                   downloaderConstants.FILE_TYPE_AVI])  # AVI file type string
 
         # Connect the file type box to the changeFileType method
         self.fileTypeBox.currentTextChanged.connect(self.changeFileType)
@@ -231,7 +234,7 @@ class DownloaderMainWindow(QMainWindow):
             None
         """
         # Create browse button
-        self.browseFilesButton = QPushButton(downloaderConstants.BUTTON_TEXT_BROWSE_FILES, self)
+        self.browseFilesButton = QPushButton(downloaderConstants.BROWSE_FILES_BUTTON_TEXT, self)
 
         # Set browse button geometry
         self.browseFilesButton.setGeometry(downloaderConstants.BROWSE_FILES_BUTTON_X_AXIS,
@@ -274,7 +277,7 @@ class DownloaderMainWindow(QMainWindow):
             None
         """
         # Create download button
-        self.downloadButton = QPushButton(downloaderConstants.BUTTON_TEXT_DOWNLOAD, self)
+        self.downloadButton = QPushButton(downloaderConstants.DOWNLOAD_BUTTON_TEXT, self)
 
         # Set download button geometry
         self.downloadButton.setGeometry(downloaderConstants.DOWNLOAD_BUTTON_X_AXIS,
@@ -303,6 +306,23 @@ class DownloaderMainWindow(QMainWindow):
         self.downloadCompletedPopUp.finished.connect(self.progressBarReset)
 
 
+    def changeFileType(self, changedTextString):
+        """
+        This method changes the file type attribute to the selected item in the file type box.
+
+        Parameters:
+            changedTextString (str): The selected item in the file type box.
+
+        Returns:
+            None
+        """
+        # Set the file type attribute to the selected item in the filetype box
+        self.fileType = changedTextString
+
+        # Set the file name entry text to the changed file type
+        self.fileNameEntry.setText(re.sub(r"\.\w+$", "." + self.fileType.lower(), self.fileNameEntry.text()))
+
+
     def showBrowseFilesWindow(self):
         """
         This method shows the browse files window.
@@ -316,11 +336,12 @@ class DownloaderMainWindow(QMainWindow):
         # Set the file name entry text to the selected file
         fileName, _ = QFileDialog.getSaveFileName(self,
                                                   "Save As",
-                                                  ".",
-                                                  self.fileType + \
-                                                  " files (*." + \
-                                                  self.fileType.lower() + \
+                                                  self.getDefaultDownloadPath(),
+                                                  self.fileType +
+                                                  " files (*." +
+                                                  self.fileType.lower() +
                                                   ");;All files (*.*)")
+
         # If the file name is not empty
         if fileName:
             # Set the file name entry text to the selected file
@@ -356,9 +377,6 @@ class DownloaderMainWindow(QMainWindow):
             # Set progress bar value
             self.progressBar.setValue(i)
 
-            # Wait for 0.01 seconds
-            time.sleep(0.01)
-
 
     def progressBarReset(self):
         """
@@ -374,9 +392,29 @@ class DownloaderMainWindow(QMainWindow):
         QProgressBar.reset(self.progressBar)
 
 
-    def downloadVideo(self):
+    @staticmethod
+    def getDefaultDownloadPath():
         """
-        This method downloads the video.
+        This method gets the default download path.
+
+        Parameters:
+
+        Returns:
+            defaultDownloadPath (str): The default download path (User's Downloads folder).
+        """
+        # Get the user's home directory
+        home = os.path.expanduser("~")
+
+        # Set the default download path to the user's Downloads folder
+        defaultDownloadPath = os.path.join(home, "Downloads")
+
+        # Return the default download path
+        return defaultDownloadPath
+
+
+    def setDefaultDownloadPath(self):
+        """
+        This method sets the default download path.
 
         Parameters:
             self (Downloader): The Downloader object.
@@ -384,7 +422,32 @@ class DownloaderMainWindow(QMainWindow):
         Returns:
             None
         """
-        # Get the URL
+        # Get the default download path
+        defaultDownloadPath = self.getDefaultDownloadPath()
+
+        # Check if the file type is MP4 or AVI
+        if self.fileType in [downloaderConstants.FILE_TYPE_MP4, downloaderConstants.FILE_TYPE_AVI]:
+            # Set the default download path to the video file
+            defaultDownloadPath = os.path.join(defaultDownloadPath, "video." + self.fileType.lower())
+        else:
+            # Set the default download path to the audio file
+            defaultDownloadPath = os.path.join(defaultDownloadPath, "audio." + self.fileType.lower())
+
+        # Set the file name entry text to the default download path
+        self.fileNameEntry.setText(defaultDownloadPath)
+
+
+    def downloadVideo(self):
+        """
+        This method downloads the video from the url and saves it to the output path.
+
+        Parameters:
+            self (Downloader): The Downloader object.
+
+        Returns:
+            None
+        """
+        # Get the url
         url = self.urlEntry.text()
 
         # Get the file type
@@ -393,30 +456,23 @@ class DownloaderMainWindow(QMainWindow):
         # Get the output path
         outputPath = self.fileNameEntry.text()
 
-        # Download Youtube video and get the result message
-        resultMessage = self.downloader.downloadYoutubeVideo(url, fileType, outputPath)
+        # Create a thread for the downloader
+        downloaderThread = threading.Thread(target=self.downloader.downloadYoutubeVideo, args=(url, fileType, outputPath))
 
-        # If the result message is download completed message
-        if resultMessage is downloaderConstants.DOWNLOAD_COMPLETED_MESSAGE:
-            # Load the progress bar
-            self.progressBarLoader()
+        # Create a thread for the progress bar loader
+        downloadProgressThread = threading.Thread(target=self.progressBarLoader)
 
-            # Show the download completed pop-up
-            self.showDownloadCompletedPopUp()
+        # Start the downloader thread
+        downloaderThread.start()
 
+        # Start the progress bar loader thread
+        downloadProgressThread.start()
 
-    def changeFileType(self, changedTextString):
-        """
-        This method changes the file type attribute to the selected item in the file type box.
+        # Wait for the downloader thread to finish
+        downloaderThread.join()
 
-        Parameters:
-            changedTextString (str): The selected item in the file type box.
+        # Wait for the progress bar loader thread to finish
+        downloadProgressThread.join()
 
-        Returns:
-            None
-        """
-        # Set the file type attribute to the selected item in the filetype box
-        self.fileType = changedTextString
-
-        # Set the file name entry text to the changed file type
-        self.fileNameEntry.setText(re.sub(r"\.\w+$", "." + self.fileType.lower(), self.fileNameEntry.text()))
+        # Show the download completed pop-up
+        self.showDownloadCompletedPopUp()

@@ -7,11 +7,13 @@ MAIN_WINDOW_HEIGHT = 300                            # The window height
 # Downloader properties
 DOWNLOADER_WINDOW_TITLE = "Video Downloader"        # The window title
 DOWNLOADER_ICON_PATH = "Video-Downloader-logo.png"  # The logo path
-DOWNLOADER_FONT = "Arial"                           # The font
-DOWNLOADER_FONT_SIZE = 10                           # The font size
+
+# Font properties
+FONT = "Arial"                                      # The font
+FONT_SIZE = 10                                      # The font size
 
 # URL label properties
-VIDEO_URL_LABEL = "YouTube Video URL"               # The URL label
+URL_LABEL_TEXT = "YouTube Video URL"                # The URL label
 URL_LABEL_X_AXIS = 20                               # X-axis
 URL_LABEL_Y_AXIS = 20                               # Y-axis
 URL_LABEL_WIDTH = 200                               # Width
@@ -24,7 +26,7 @@ URL_ENTRY_WIDTH = 350                               # Width
 URL_ENTRY_HEIGHT = 30                               # Height
 
 # File name label properties
-FILE_NAME_LABEL_SAVE_AS = "Save as"                 # The save as label
+FILE_NAME_LABEL_TEXT = "Save as"                    # The save as label
 FILE_NAME_LABEL_X_AXIS = 20                         # X-axis
 FILE_NAME_LABEL_Y_AXIS = 100                        # Y-axis
 FILE_NAME_LABEL_WIDTH = 200                         # Width
@@ -49,7 +51,7 @@ FILE_TYPE_AVI = "AVI"                               # The AVI file type
 DEFAULT_FILE_TYPE = FILE_TYPE_MP3                   # The default file type
 
 # Browse files button properties
-BUTTON_TEXT_BROWSE_FILES = "Browse files"           # The browse files button text
+BROWSE_FILES_BUTTON_TEXT = "Browse files"           # The browse files button text
 BROWSE_FILES_BUTTON_X_AXIS = 385                    # X-axis
 BROWSE_FILES_BUTTON_Y_AXIS = 140                    # Y-axis
 BROWSE_FILES_BUTTON_WIDTH = 100                     # Width
@@ -62,7 +64,7 @@ PROGRESS_BAR_WIDTH = 500                            # Width
 PROGRESS_BAR_HEIGHT = 30                            # Height
 
 # Download button properties
-BUTTON_TEXT_DOWNLOAD = "Download"                   # The download button text
+DOWNLOAD_BUTTON_TEXT = "Download"                   # The download button text
 DOWNLOAD_BUTTON_X_AXIS = 20                         # X-axis
 DOWNLOAD_BUTTON_Y_AXIS = 240                        # Y-axis
 DOWNLOAD_BUTTON_WIDTH = 462                         # Width

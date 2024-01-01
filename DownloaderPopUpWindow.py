@@ -39,7 +39,7 @@ class DownloadCompletedPopUp(QDialog):
         self.setFixedSize(downloaderConstants.POPUP_WINDOW_WIDTH, downloaderConstants.POPUP_WINDOW_HEIGHT)
 
         # Set the window font
-        self.setFont(QFont(downloaderConstants.DOWNLOADER_FONT, downloaderConstants.DOWNLOADER_FONT_SIZE))
+        self.setFont(QFont(downloaderConstants.FONT, downloaderConstants.FONT_SIZE))
 
         # Set the window icon
         self.setWindowIcon(QIcon(downloaderConstants.DOWNLOADER_ICON_PATH))
