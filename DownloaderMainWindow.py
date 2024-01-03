@@ -37,6 +37,7 @@ class DownloaderMainWindow(QMainWindow):
         initializeDownloadButton: This method initializes the download video button.
         initializeDownloadCompletedPopup: This method initializes the download completed popup.
         changeFileType: This method changes the file type attribute to the selected item in the file type box.
+        getDefaultFileName: This method gets the default file name.
         getDefaultDownloadPath: This method gets the default download path.
         setDefaultDownloadPath: This method sets the default download path.
         showBrowseFilesWindow: This method shows the browse files window.
@@ -323,6 +324,27 @@ class DownloaderMainWindow(QMainWindow):
         self.fileNameEntry.setText(re.sub(r"\.\w+$", "." + self.fileType.lower(), self.fileNameEntry.text()))
 
 
+    def getDefaultFileName(self):
+        """
+        This method gets the default file name.
+
+        Parameters:
+
+        Returns:
+            defaultFileName (str): The default file name.
+        """
+        # Get the default file name based on the file type
+        defaultFileName = {
+            # Default file name for videos
+            downloaderConstants.FILE_TYPE_MP4: downloaderConstants.DEFAULT_VIDEO_FILE_NAME,
+            downloaderConstants.FILE_TYPE_AVI: downloaderConstants.DEFAULT_VIDEO_FILE_NAME,
+        # Default file name for audio
+        }.get(self.fileType, downloaderConstants.DEFAULT_AUDIO_FILE_NAME)
+
+        # Return the default file name
+        return defaultFileName
+
+
     @staticmethod
     def getDefaultDownloadPath():
         """
@@ -354,15 +376,7 @@ class DownloaderMainWindow(QMainWindow):
             None
         """
         # Get the default download path
-        defaultDownloadPath = self.getDefaultDownloadPath()
-
-        # Check if the file type is MP4 or AVI
-        if self.fileType in [downloaderConstants.FILE_TYPE_MP4, downloaderConstants.FILE_TYPE_AVI]:
-            # Set the default download path to the default video file name
-            defaultDownloadPath = os.path.join(defaultDownloadPath, downloaderConstants.DEFAULT_VIDEO_FILE_NAME + "." + self.fileType.lower())
-        else:
-            # Set the default download path to the default audio file name
-            defaultDownloadPath = os.path.join(defaultDownloadPath, downloaderConstants.DEFAULT_AUDIO_FILE_NAME + "." + self.fileType.lower())
+        defaultDownloadPath = self.getDefaultDownloadPath() + "\\" + self.getDefaultFileName() + "." + self.fileType.lower()
 
         # Set the file name entry text to the default download path
         self.fileNameEntry.setText(defaultDownloadPath)
@@ -378,14 +392,17 @@ class DownloaderMainWindow(QMainWindow):
         Returns:
             None
         """
+        # Set the file path to the default download path
+        filePath = self.getDefaultDownloadPath() + "\\" + self.getDefaultFileName()
+
+        # Set the file type filter
+        fileTypeFilter = f"{self.fileType} files (*.{self.fileType.lower()});;All files (*.*)"
+
         # Set the file name entry text to the selected file
         fileName, _ = QFileDialog.getSaveFileName(self,
-                                                  "Save As",
-                                                  self.getDefaultDownloadPath(),
-                                                  self.fileType +
-                                                  " files (*." +
-                                                  self.fileType.lower() +
-                                                  ");;All files (*.*)")
+                                                  downloaderConstants.SAVE_FILE_TEXT,
+                                                  filePath,
+                                                  fileTypeFilter)
 
         # If the file name is not empty
         if fileName:

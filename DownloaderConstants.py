@@ -89,8 +89,11 @@ DOWNLOAD_FAILED_POPUP_TEXT = "The download has failed." # The download failed po
 # Button text properties
 BUTTON_TEXT_OK = "OK" # The OK button text
 
+# Save file properties
+SAVE_FILE_TEXT = "Save file"                        # The save file text
+
 # Messages text properties
-DOWNLOAD_COMPLETED_MESSAGE = "Download completed" # The message box title
+DOWNLOAD_COMPLETED_MESSAGE = "Download completed"   # The message box title
 
 # Exception messages
 EXCEPTION_MESSAGE_STREAM_NOT_AVAILABLE = "Error: Stream not available" # The stream not available exception message
