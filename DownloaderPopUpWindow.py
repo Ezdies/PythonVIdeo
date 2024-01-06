@@ -10,12 +10,14 @@ from PyQt5.QtCore import Qt
 
 class DownloadCompletedPopUp(QDialog):
     """
-    Class that creates a pop-up window that appears when the download is completed.
+    Creates a pop-up window that appears when the download is completed.
 
     Methods:
         __init__: The constructor for DownloadCompletedPopUp class.
-        setPopUpPropertiesToSuccess: This method sets the pop-up window download properties to success.
-        setPopUpPropertiesToFailure: This method sets the pop-up window download properties to failure.
+        initializeLabel: Initializes the label.
+        initializeOkButton: Initializes the ok button.
+        setPopUpPropertiesToSuccess: Sets the pop-up window download properties to success.
+        setPopUpPropertiesToFailure: Sets the pop-up window download properties to failure.
 
     Attributes:
         parent (QWidget): The parent widget.
@@ -30,55 +32,28 @@ class DownloadCompletedPopUp(QDialog):
         Returns:
             None
         """
-        # Call the parent constructor
         super().__init__(parent)
-
-        # Create the layout
-        layout = QVBoxLayout()
-
-        # Define the pop-up window properties
-        # Set the window title
         self.setWindowTitle(None)
-
-        # Set the window width and height
+        self.setWindowFlags(self.windowFlags() & ~Qt.WindowContextHelpButtonHint)
+        self.setWindowIcon(QIcon(downloaderConstants.DOWNLOADER_ICON_PATH))
         self.setFixedSize(downloaderConstants.POPUP_WINDOW_WIDTH, downloaderConstants.POPUP_WINDOW_HEIGHT)
-
-        # Set the window font
         self.setFont(QFont(downloaderConstants.FONT, downloaderConstants.FONT_SIZE, QFont.Bold))
 
-        # Set the window icon
-        self.setWindowIcon(QIcon(downloaderConstants.DOWNLOADER_ICON_PATH))
+        self.label = None
+        self.okButton = None
 
-        # Set the window content text
-        self.label = QLabel(None)
+        self.initializeLabel()
+        self.initializeOkButton()
 
-        # Remove the help button from the window
-        self.setWindowFlags(self.windowFlags() & ~Qt.WindowContextHelpButtonHint)
-
-        # Define the OK button properties
-        # Create the OK button
-        self.okButton = QPushButton(downloaderConstants.BUTTON_TEXT_OK)
-
-        # Set the OK button color
-        self.okButton.setStyleSheet(downloaderConstants.DOWNLOADER_COLOR_LIGHT)
-
-        # Connect the OK button to the close method
-        self.okButton.clicked.connect(self.close)
-
-        # Define the layout properties
-        # Add the label widget to the layout
+        layout = QVBoxLayout()
         layout.addWidget(self.label)
-
-        # Add the OK button widget to the layout
         layout.addWidget(self.okButton)
-
-        # Set the layout
         self.setLayout(layout)
 
 
-    def setPopUpPropertiesToSuccess(self):
+    def initializeLabel(self):
         """
-        This method sets the pop-up window download properties to success.
+        Initializes the label.
 
         Parameters:
             self (DownloadCompletedPopUp): The DownloadCompletedPopUp object.
@@ -86,16 +61,42 @@ class DownloadCompletedPopUp(QDialog):
         Returns:
             None
         """
-        # Set the window title
-        self.setWindowTitle(downloaderConstants.DOWNLOAD_COMPLETED_POPUP_TITLE)
+        self.label = QLabel(None)
+        self.label.setStyleSheet(downloaderConstants.FONT_COLOR_DARK)
 
-        # Set the window content text
+
+    def initializeOkButton(self):
+        """
+        Initializes the ok button.
+
+        Parameters:
+            self (DownloadCompletedPopUp): The DownloadCompletedPopUp object.
+
+        Returns:
+            None
+        """
+        self.okButton = QPushButton(downloaderConstants.BUTTON_TEXT_OK)
+        self.okButton.setStyleSheet(downloaderConstants.DOWNLOADER_COLOR_LIGHT)
+        self.okButton.clicked.connect(self.close)
+
+
+    def setPopUpPropertiesToSuccess(self):
+        """
+        Sets the pop-up window download properties to success.
+
+        Parameters:
+            self (DownloadCompletedPopUp): The DownloadCompletedPopUp object.
+
+        Returns:
+            None
+        """
+        self.setWindowTitle(downloaderConstants.DOWNLOAD_COMPLETED_POPUP_TITLE)
         self.label.setText(downloaderConstants.DOWNLOAD_COMPLETED_POPUP_TEXT)
 
 
     def setPopUpPropertiesToFailure(self):
         """
-        This method sets the pop-up window download properties to failure.
+        Sets the pop-up window download properties to failure.
 
         Parameters:
             self (DownloadCompletedPopUp): The DownloadCompletedPopUp object.
@@ -103,8 +104,5 @@ class DownloadCompletedPopUp(QDialog):
         Returns:
             None
         """
-        # Set the window title
         self.setWindowTitle(downloaderConstants.DOWNLOAD_FAILED_POPUP_TITLE)
-
-        # Set the window content text
         self.label.setText(downloaderConstants.DOWNLOAD_FAILED_POPUP_TEXT)
