@@ -4,15 +4,15 @@
 
 Video Downloader is a simple application built with Python and PyQt5 user interface that allows users to download videos in multiple formats from YouTube. It also features config for generating an executable application for Windows.
 
-## How it works
+## Showcase
 
-![Video Downloader Presentation](https://github.com/tukarp/Video-Downloader/assets/114019481/6e99ebe9-2353-404b-b11c-34e91f59c334)
+https://github.com/tukarp/Video-Downloader/assets/114019481/6e99ebe9-2353-404b-b11c-34e91f59c334
 
 ## Requirements
 
 - `Python 3`
-- `PyQt5`
 - `PyTube`
+- `PyQt5`
 
 ## Installation
 
@@ -31,13 +31,13 @@ https://github.com/tukarp/Video-Downloader
 ### Install packages
 
 ```commandline
-pip install pyqt5 pytube
+pip install -r requirements.txt
 ```
 
 or
 
 ```commandline
-pip install -r requirements.txt
+pip install pyqt5 pytube
 ```
 
 ## Generate an executable file
