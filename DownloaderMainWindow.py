@@ -69,8 +69,11 @@ class DownloaderMainWindow(QMainWindow):
         # Set the window width and height
         self.setFixedSize(downloaderConstants.MAIN_WINDOW_WIDTH, downloaderConstants.MAIN_WINDOW_HEIGHT)
 
+        # Set the window color
+        self.setStyleSheet(downloaderConstants.DOWNLOADER_COLOR_LIGHT)
+
         # Set the window font
-        self.setFont(QFont(downloaderConstants.FONT, downloaderConstants.FONT_SIZE))
+        self.setFont(QFont(downloaderConstants.FONT, downloaderConstants.FONT_SIZE, QFont.Bold))
 
         # Set the window icon
         self.setWindowIcon(QIcon(downloaderConstants.DOWNLOADER_ICON_PATH))
@@ -129,14 +132,17 @@ class DownloaderMainWindow(QMainWindow):
         Returns:
             None
         """
-        # Create Url label
+        # Create the url label
         self.urlLabel = QLabel(downloaderConstants.URL_LABEL_TEXT, self)
 
-        # Set url label geometry
+        # Set the url label geometry
         self.urlLabel.setGeometry(downloaderConstants.URL_LABEL_X_AXIS,
                                   downloaderConstants.URL_LABEL_Y_AXIS,
                                   downloaderConstants.URL_LABEL_WIDTH,
                                   downloaderConstants.URL_LABEL_HEIGHT)
+
+        # Set the url label color
+        self.urlLabel.setStyleSheet(downloaderConstants.FONT_COLOR_DARK)
 
 
     def initializeUrlEntry(self):
@@ -149,14 +155,17 @@ class DownloaderMainWindow(QMainWindow):
         Returns:
             None
         """
-        # Create url entry
+        # Create the url entry
         self.urlEntry = QLineEdit(self)
 
-        # Set url entry geometry
+        # Set the url entry geometry
         self.urlEntry.setGeometry(downloaderConstants.URL_ENTRY_X_AXIS,
                                   downloaderConstants.URL_ENTRY_Y_AXIS,
                                   downloaderConstants.URL_ENTRY_WIDTH,
                                   downloaderConstants.URL_ENTRY_HEIGHT)
+
+        # Set the url entry color
+        self.urlEntry.setStyleSheet(downloaderConstants.FONT_COLOR_DARK)
 
 
     def initializeFileNameLabel(self):
@@ -169,14 +178,17 @@ class DownloaderMainWindow(QMainWindow):
         Returns:
             None
         """
-        # Create file name label
+        # Create the file name label
         self.fileNameLabel = QLabel(downloaderConstants.FILE_NAME_LABEL_TEXT, self)
 
-        # Set file name label geometry
+        # Set the file name label geometry
         self.fileNameLabel.setGeometry(downloaderConstants.FILE_NAME_LABEL_X_AXIS,
                                        downloaderConstants.FILE_NAME_LABEL_Y_AXIS,
                                        downloaderConstants.FILE_NAME_LABEL_WIDTH,
                                        downloaderConstants.FILE_NAME_LABEL_HEIGHT)
+
+        # Set the file name label color
+        self.fileNameLabel.setStyleSheet(downloaderConstants.FONT_COLOR_DARK)
 
 
     def initializeFileNameEntry(self):
@@ -189,14 +201,17 @@ class DownloaderMainWindow(QMainWindow):
         Returns:
             None
         """
-        # Create file name entry
+        # Create the file name entry
         self.fileNameEntry = QLineEdit(self)
 
-        # Set file name entry geometry
+        # Set the file name entry geometry
         self.fileNameEntry.setGeometry(downloaderConstants.FILE_NAME_ENTRY_X_AXIS,
                                        downloaderConstants.FILE_NAME_ENTRY_Y_AXIS,
                                        downloaderConstants.FILE_NAME_ENTRY_WIDTH,
                                        downloaderConstants.FILE_NAME_ENTRY_HEIGHT)
+
+        # Set the file name entry color
+        self.fileNameEntry.setStyleSheet(downloaderConstants.FONT_COLOR_DARK)
 
 
     def initializeFileTypeBox(self):
@@ -209,10 +224,10 @@ class DownloaderMainWindow(QMainWindow):
         Returns:
             None
         """
-        # Create file type label
+        # Create the file type label
         self.fileTypeBox = QComboBox(self)
 
-        # Set file type label geometry
+        # Set the file type label geometry
         self.fileTypeBox.setGeometry(downloaderConstants.FILE_TYPE_BOX_X_AXIS,
                                      downloaderConstants.FILE_TYPE_BOX_Y_AXIS,
                                      downloaderConstants.FILE_TYPE_BOX_WIDTH,
@@ -222,6 +237,9 @@ class DownloaderMainWindow(QMainWindow):
         self.fileTypeBox.addItems([downloaderConstants.FILE_TYPE_MP3,
                                    downloaderConstants.FILE_TYPE_MP4,
                                    downloaderConstants.FILE_TYPE_AVI])
+
+        # Set the file type box color
+        self.fileTypeBox.setStyleSheet(downloaderConstants.FONT_COLOR_DARK)
 
         # Connect the file type box to the changeFileType method
         self.fileTypeBox.currentTextChanged.connect(self.changeFileType)
@@ -237,14 +255,17 @@ class DownloaderMainWindow(QMainWindow):
         Returns:
             None
         """
-        # Create browse button
+        # Create the browse button
         self.browseFilesButton = QPushButton(downloaderConstants.BROWSE_FILES_BUTTON_TEXT, self)
 
-        # Set browse button geometry
+        # Set the browse button geometry
         self.browseFilesButton.setGeometry(downloaderConstants.BROWSE_FILES_BUTTON_X_AXIS,
                                            downloaderConstants.BROWSE_FILES_BUTTON_Y_AXIS,
                                            downloaderConstants.BROWSE_FILES_BUTTON_WIDTH,
                                            downloaderConstants.BROWSE_FILES_BUTTON_HEIGHT)
+
+        # Set the browse button color
+        self.browseFilesButton.setStyleSheet(downloaderConstants.FONT_COLOR_DARK)
 
         # Connect the browse button to the browseFiles method
         self.browseFilesButton.clicked.connect(self.showBrowseFilesWindow)
@@ -260,14 +281,17 @@ class DownloaderMainWindow(QMainWindow):
         Returns:
             None
         """
-        # Create progress bar
+        # Create the progress bar
         self.progressBar = QProgressBar(self)
 
-        # Set progress bar geometry
+        # Set the progress bar geometry
         self.progressBar.setGeometry(downloaderConstants.PROGRESS_BAR_X_AXIS,
                                      downloaderConstants.PROGRESS_BAR_Y_AXIS,
                                      downloaderConstants.PROGRESS_BAR_WIDTH,
                                      downloaderConstants.PROGRESS_BAR_HEIGHT)
+
+        # Set the progress bar color
+        self.progressBar.setStyleSheet(downloaderConstants.FONT_COLOR_DARK)
 
 
     def initializeDownloadButton(self):
@@ -280,14 +304,17 @@ class DownloaderMainWindow(QMainWindow):
         Returns:
             None
         """
-        # Create download button
+        # Create the download button
         self.downloadButton = QPushButton(downloaderConstants.DOWNLOAD_BUTTON_TEXT, self)
 
-        # Set download button geometry
+        # Set the download button geometry
         self.downloadButton.setGeometry(downloaderConstants.DOWNLOAD_BUTTON_X_AXIS,
                                         downloaderConstants.DOWNLOAD_BUTTON_Y_AXIS,
                                         downloaderConstants.DOWNLOAD_BUTTON_WIDTH,
                                         downloaderConstants.DOWNLOAD_BUTTON_HEIGHT)
+
+        # Set the download button color
+        self.downloadButton.setStyleSheet(downloaderConstants.FONT_COLOR_DARK)
 
         # Connect the download button to the download video method
         self.downloadButton.clicked.connect(self.downloadVideo)
@@ -422,7 +449,7 @@ class DownloaderMainWindow(QMainWindow):
         """
         # For each number from 0 to 100
         for i in range(101):
-            # Set progress bar value
+            # Set the progress bar value
             self.progressBar.setValue(i)
 
             # Sleep for 0.1 seconds

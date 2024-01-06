@@ -44,7 +44,7 @@ class DownloadCompletedPopUp(QDialog):
         self.setFixedSize(downloaderConstants.POPUP_WINDOW_WIDTH, downloaderConstants.POPUP_WINDOW_HEIGHT)
 
         # Set the window font
-        self.setFont(QFont(downloaderConstants.FONT, downloaderConstants.FONT_SIZE))
+        self.setFont(QFont(downloaderConstants.FONT, downloaderConstants.FONT_SIZE, QFont.Bold))
 
         # Set the window icon
         self.setWindowIcon(QIcon(downloaderConstants.DOWNLOADER_ICON_PATH))
@@ -58,6 +58,9 @@ class DownloadCompletedPopUp(QDialog):
         # Define the OK button properties
         # Create the OK button
         self.okButton = QPushButton(downloaderConstants.BUTTON_TEXT_OK)
+
+        # Set the OK button color
+        self.okButton.setStyleSheet(downloaderConstants.DOWNLOADER_COLOR_LIGHT)
 
         # Connect the OK button to the close method
         self.okButton.clicked.connect(self.close)

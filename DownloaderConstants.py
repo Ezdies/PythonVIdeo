@@ -7,10 +7,14 @@ MAIN_WINDOW_HEIGHT = 300                            # The window height
 # Downloader properties
 DOWNLOADER_WINDOW_TITLE = "Video Downloader"        # The window title
 DOWNLOADER_ICON_PATH = "Video-Downloader-logo.png"  # The logo path
+DOWNLOADER_COLOR_LIGHT = "background-color: #F0F0F0;" # The light component color
+DOWNLOADER_COLOR_DARK = "background-color: #000000;" # The dark component color
 
 # Font properties
 FONT = "Arial"                                      # The font
 FONT_SIZE = 10                                      # The font size
+FONT_COLOR_LIGHT = "color: #FFFFFF;"                # The light font color
+FONT_COLOR_DARK = "color: #000000;"                 # The dark font color
 
 # Default file name properties
 DEFAULT_VIDEO_FILE_NAME = "video"                   # The default video name
