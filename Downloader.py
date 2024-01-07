@@ -14,6 +14,8 @@ class Downloader:
     Methods:
         downloadYoutubeVideo: This method downloads the youtube video.
     """
+
+
     @staticmethod
     def downloadYoutubeVideo(url, filetype, outputPath):
         """
