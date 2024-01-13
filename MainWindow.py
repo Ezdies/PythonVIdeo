@@ -1,6 +1,6 @@
-import DownloaderConstants as downloaderConstants
+import Constants as downloaderConstants
 
-from DownloaderPopUpWindow import DownloadCompletedPopUp
+from PopUpWindow import DownloadCompletedPopUp
 from Downloader import Downloader
 
 from PyQt5.QtWidgets import QProgressBar

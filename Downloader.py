@@ -1,4 +1,4 @@
-import DownloaderConstants as downloaderConstants
+import Constants as downloaderConstants
 
 from pytube import YouTube
 

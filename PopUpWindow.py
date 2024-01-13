@@ -1,4 +1,4 @@
-import DownloaderConstants as downloaderConstants
+import Constants as downloaderConstants
 
 from PyQt5.QtWidgets import QVBoxLayout
 from PyQt5.QtWidgets import QPushButton

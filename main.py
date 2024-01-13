@@ -1,4 +1,4 @@
-from DownloaderMainWindow import DownloaderMainWindow
+from MainWindow import DownloaderMainWindow
 
 from PyQt5.QtWidgets import QApplication
 
