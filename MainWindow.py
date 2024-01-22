@@ -1,3 +1,7 @@
+"""
+This module contains the main window class of the downloader application.
+"""
+
 import Constants as downloaderConstants
 
 from PopUpWindow import DownloadCompletedPopUp

@@ -1,4 +1,6 @@
-# Downloader Application Constants
+"""
+This module contains the constants for the downloader application.
+"""
 
 # Main window properties
 MAIN_WINDOW_WIDTH = 520
