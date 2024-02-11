@@ -2,10 +2,10 @@
 This module contains the main window class of the downloader application.
 """
 
-import Constants as downloaderConstants
+import Constants.DownloaderConstants as downloaderConstants
 
-from PopUpWindow import DownloadCompletedPopUp
-from Downloader import Downloader
+from Windows.PopUpWindow import DownloadCompletedPopUp
+from Downloader.Downloader import Downloader
 
 from PyQt5.QtWidgets import QProgressBar
 from PyQt5.QtWidgets import QMainWindow
