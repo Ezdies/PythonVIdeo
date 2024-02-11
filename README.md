@@ -55,7 +55,7 @@ pip install pyinstaller
 ### Generate the executable file
 
 ```commandline
-pyinstaller --windowed --name "Video Downloader" main.py
+pyinstaller --windowed --name "Video Downloader" Source/main.py
 ```
 
 ## Run the application
@@ -63,7 +63,7 @@ pyinstaller --windowed --name "Video Downloader" main.py
 ### Run the script
 
 ```commandline
-python main.py
+python Source/main.py
 ```
 
 ### Run the executable file
