@@ -1,10 +1,69 @@
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#              Git Ignore Configuration
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# ~~~~~~~~~~ Editor files ~~~~~~~~~~
+# Visual Studio Code
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+!.vscode/*.code-snippets
+.history
+.history/*
+
+# PyCharm
+.idea/*
+
+# ~~~~~~~~~~ Environments ~~~~~~~~~~
+# Environment variables
+.env
+env/
+ENV/
+env.bak/
+
+# Virutal environments
+.venv
+venv/
+venv.bak/
+
+# ~~~~~~~~~~ Build ~~~~~~~~~~
 # Caches
+.cache
 __pycache__/
+*.py[cod]
+*$py.class
 
-# Virtual Environments
-.vscode
-.idea
+# Builder
+.pybuilder/
+target/
 
-# PyInstaller Generated Files
-build/
+# Distribution / Packaging
+.Python
+lib/
+var/
 dist/
+build/
+lib64/
+downloads/
+.installed.cfg
+MANIFEST
+
+# ~~~~~~~~~~ Unit tests / Reports ~~~~~~~~~~
+# Unit tests
+.tox/
+.nox/
+
+# Coverage
+*.cover
+.coverage
+.coverage.*
+coverage.xml
+*.py,cover
+cover/
+htmlcov/
+
+# Unit test reports
+nosetests.xml
+.hypothesis/
+.pytest_cache/

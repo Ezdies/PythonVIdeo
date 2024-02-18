@@ -2,7 +2,7 @@
 This module contains the pop-up window class for the downloader application.
 """
 
-import Constants.DownloaderConstants as downloaderConstants
+import Source.Constants.DownloaderConstants as downloaderConstants
 
 from PyQt5.QtWidgets import QVBoxLayout
 from PyQt5.QtWidgets import QPushButton
