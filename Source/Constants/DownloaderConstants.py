@@ -8,7 +8,7 @@ MAIN_WINDOW_HEIGHT = 300
 
 # Downloader window properties
 DOWNLOADER_WINDOW_TITLE = "Video Downloader"
-DOWNLOADER_ICON_PATH = "Video-Downloader-logo.png"
+DOWNLOADER_ICON_PATH = "../Graphics/Video-Downloader-logo.png"
 DOWNLOADER_COLOR_LIGHT = "background-color: #F0F0F0;"
 DOWNLOADER_COLOR_DARK = "background-color: #000000;"
 

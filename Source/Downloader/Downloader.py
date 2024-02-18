@@ -2,7 +2,7 @@
 This module contains the downloader class for the downloader application.
 """
 
-import Constants.DownloaderConstants as downloaderConstants
+import Source.Constants.DownloaderConstants as downloaderConstants
 
 from pytube import YouTube
 
