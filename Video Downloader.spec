@@ -1,7 +1,7 @@
 # -*- mode: python ; coding: utf-8 -*-
 
-a = Analysis(
-    ['main.py'],
+application = Analysis(
+    ["Source\\main.py"],
     pathex=[],
     binaries=[],
     datas=[],
@@ -13,14 +13,14 @@ a = Analysis(
     noarchive=False,
 )
 
-pyz = PYZ(a.pure)
+archive = PYZ(application.pure)
 
-exe = EXE(
-    pyz,
-    a.scripts,
+executable = EXE(
+    archive,
+    application.scripts,
     [],
     exclude_binaries=True,
-    name='Video Downloader',
+    name="Video Downloader",
     debug=False,
     bootloader_ignore_signals=False,
     strip=False,
@@ -33,12 +33,12 @@ exe = EXE(
     entitlements_file=None,
 )
 
-coll = COLLECT(
-    exe,
-    a.binaries,
-    a.datas,
+collection = COLLECT(
+    executable,
+    application.binaries,
+    application.datas,
     strip=False,
     upx=True,
     upx_exclude=[],
-    name='Video Downloader',
+    name="Video Downloader",
 )

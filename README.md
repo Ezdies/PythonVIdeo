@@ -1,4 +1,8 @@
-<img src="Video-Downloader-logo.png" alt="Video Downloader Logo" width="512" height="512">
+<div align="center">
+
+<img src="Graphics/Video-Downloader-logo.png" alt="Video Downloader Logo" width="512" height="512">
+
+</div>
 
 # Video Downloader
 
@@ -51,7 +55,7 @@ pip install pyinstaller
 ### Generate the executable file
 
 ```commandline
-pyinstaller --windowed --name "Video Downloader" main.py
+pyinstaller --windowed --name "Video Downloader" Source/main.py
 ```
 
 ## Run the application
@@ -59,7 +63,7 @@ pyinstaller --windowed --name "Video Downloader" main.py
 ### Run the script
 
 ```commandline
-python main.py
+python Source/main.py
 ```
 
 ### Run the executable file
@@ -85,4 +89,26 @@ Video Downloader.exe
 
 ## License
 
-This project is licensed under the MIT License.
+```
+MIT License
+
+Copyright (c) 2023 Maksymilian Dudziak, Tomasz Wnuk
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+```
