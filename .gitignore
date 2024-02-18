@@ -1,8 +1,10 @@
-# Caches and virtual environments
+# Caches
 __pycache__/
+
+# Virtual Environments
 .vscode
 .idea
 
-# PyInstaller generated files
+# PyInstaller Generated Files
 build/
 dist/
